@@ -48,5 +48,7 @@ def test_location_quotient(employment, mapping):
 
 def test_attach_missing_axis_is_zero(employment, mapping):
     shares = axis_employment_share(employment, mapping)
-    offers = pd.DataFrame({"oferta_id": [1], "territorio": ["R2"], "ano": [2022], "eixo": ["Saúde"]})
+    offers = pd.DataFrame(
+        {"oferta_id": [1], "territorio": ["R2"], "ano": [2022], "eixo": ["Saúde"]}
+    )
     assert attach_to_offers(offers, shares)["aderencia"].iloc[0] == 0.0

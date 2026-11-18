@@ -9,4 +9,3 @@ def is_ambiguous(top1: float, top2: float, tau: float, delta: float) -> bool:
 
 def resolve(cnae_row: dict, candidates: list[dict], model: str) -> dict:
     raise NotImplementedError
-

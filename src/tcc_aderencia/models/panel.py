@@ -2,7 +2,11 @@
 
 from __future__ import annotations
 
+from typing import TYPE_CHECKING
 
-def fit(panel: "pd.DataFrame", outcome: str) -> object:
+if TYPE_CHECKING:
+    import pandas as pd
+
+
+def fit(panel: pd.DataFrame, outcome: str) -> object:
     raise NotImplementedError
-

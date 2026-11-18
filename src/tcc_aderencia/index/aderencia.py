@@ -26,7 +26,9 @@ def axis_employment_share(employment: pd.DataFrame, mapping: pd.DataFrame) -> pd
     return out[["territorio", "ano", "eixo", "aderencia"]]
 
 
-def location_quotient(shares: pd.DataFrame, employment: pd.DataFrame, mapping: pd.DataFrame) -> pd.DataFrame:
+def location_quotient(
+    shares: pd.DataFrame, employment: pd.DataFrame, mapping: pd.DataFrame
+) -> pd.DataFrame:
     """Variant A2: territory share divided by the national share of the same axis."""
     national = employment.assign(territorio="BR")
     br = axis_employment_share(national, mapping).rename(columns={"aderencia": "aderencia_br"})

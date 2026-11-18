@@ -2,7 +2,11 @@
 
 from __future__ import annotations
 
+from typing import TYPE_CHECKING
 
-def build_establishment_stock(years: list[int]) -> "pd.DataFrame":
+if TYPE_CHECKING:
+    import pandas as pd
+
+
+def build_establishment_stock(years: list[int]) -> pd.DataFrame:
     raise NotImplementedError
-

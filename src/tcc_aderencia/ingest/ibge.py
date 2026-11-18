@@ -2,7 +2,11 @@
 
 from __future__ import annotations
 
+from typing import TYPE_CHECKING
 
-def load_territories() -> "pd.DataFrame":
+if TYPE_CHECKING:
+    import pandas as pd
+
+
+def load_territories() -> pd.DataFrame:
     raise NotImplementedError
-

@@ -97,7 +97,27 @@ Arquivos baixados manualmente pelo pesquisador em `dados/` (fora do git): `micro
 
 **Qualidade dos dados:** nos JSON, os campos `Região` e `Município` estão deslocados (trazem a instituição e a região). **Usar o CSV.**
 
-**Próximo download necessário:** eficiência acadêmica das edições 2018–2022 e 2024–2025 (CSV), para montar o painel de safras.
+## 8. Série da PNP (edições 2018–2023)
+
+As 6 edições têm as **mesmas 54 colunas**. Cada edição reúne os ciclos com término previsto no ano anterior.
+
+| Edição | Safra (fim previsto) | Matrículas técnicas | Matrículas técnicas EaD | Ofertas técnicas | Ofertas EaD | Evasão técnica |
+|---|---|---|---|---|---|---|
+| 2018 | 2017 | 193.343 | 75.684 | 3.076 | 770 | — (categorias diferentes) |
+| 2019 | 2018 | 143.223 | 6.415 | 2.634 | 50 | 43,9% |
+| 2020 | 2019 | 151.437 | 9.950 | 2.722 | 93 | 42,9% |
+| 2021 | 2020 | 155.756 | 15.506 | 2.871 | 114 | 38,2% |
+| 2022 | 2021 | 149.674 | 9.696 | 2.857 | 93 | 41,4% |
+| 2023 | 2022 | 145.831 | 13.842 | 2.752 | 111 | 41,3% |
+
+**Harmonização necessária:**
+- **2018** usa as categorias `Conclusão / Evasão / Retidos` e **não tem código de ciclo** (100% "Não Informado"). O ciclo terá de ser reconstruído por unidade × curso × datas de início e fim.
+- **2023** separa `Concluídos` de `Concluintes`; as duas contam como conclusão.
+- **EaD em 2018:** 75 mil matrículas e 770 ofertas, provavelmente o encerramento dos ciclos da Rede e-Tec Brasil. Isso é uma quebra estrutural; a EaD de 2018 entra numa análise de sensibilidade (com e sem ela).
+
+**Total disponível:** cerca de 940 mil matrículas técnicas em 6 safras (2017–2022). Sem 2018 restam cerca de 56 mil matrículas EaD e cerca de 460 ciclos/ofertas EaD.
+
+**RAIS necessária:** ciclos de até 4 anos que terminam entre 2017 e 2022 começam a partir de cerca de 2013, e `Q` é medido no ano anterior ao início. A RAIS precisa cobrir **2012–2022** (2023–2024 para as safras seguintes).
 
 ## Arquivos gerados
 - `data/external/cnct4_cursos.csv`, `cnae_subclasses.csv`, `ibge_municipios_rgi.csv`

@@ -2,11 +2,15 @@
 
 from __future__ import annotations
 
+from typing import TYPE_CHECKING
 
-def territory_placebo(panel: "pd.DataFrame", seed: int) -> "pd.DataFrame":
+if TYPE_CHECKING:
+    import pandas as pd
+
+
+def territory_placebo(panel: pd.DataFrame, seed: int) -> pd.DataFrame:
     raise NotImplementedError
 
 
-def axis_placebo(panel: "pd.DataFrame", seed: int) -> "pd.DataFrame":
+def axis_placebo(panel: pd.DataFrame, seed: int) -> pd.DataFrame:
     raise NotImplementedError
-

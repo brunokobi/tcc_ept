@@ -2,7 +2,11 @@
 
 from __future__ import annotations
 
+from typing import TYPE_CHECKING
 
-def explain(panel: "pd.DataFrame", outcome: str) -> "pd.DataFrame":
+if TYPE_CHECKING:
+    import pandas as pd
+
+
+def explain(panel: pd.DataFrame, outcome: str) -> pd.DataFrame:
     raise NotImplementedError
-
