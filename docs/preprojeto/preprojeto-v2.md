@@ -136,7 +136,7 @@ Pesquisa aplicada, quantitativa e explicativa, com dados secundários públicos 
 | Robustez | Outra definição de território, mapeamento (texto × CBO), edição do CNCT e ponderação | O achado não depende de uma escolha específica |
 | Heterogeneidade | Tipo de curso (integrado, concomitante, subsequente), modalidade, eixo, faixa etária dos ingressantes | Separa H1a de H1b e aprofunda H2 |
 
-**Poder estatístico:** antes do pré-registro, uma simulação com a estrutura real do painel (número de ofertas, ciclos por oferta e variância intra-oferta da aderência) estima o menor efeito detectável, e esse número é reportado junto aos resultados.
+**Volume e poder estatístico:** a prospecção da PNP (safra de ciclos encerrados em 2022) encontrou 2.641 ofertas técnicas presenciais e 111 EaD (13.842 matrículas, 56% delas em Gestão e Negócios); 563 de 624 unidades ofertam dois ou mais cursos, e 107 de 140 cursos são ofertados em duas ou mais unidades (99% das matrículas), o que viabiliza os efeitos fixos cruzados. Antes do pré-registro, uma simulação com a estrutura real do painel (número de ofertas, ciclos por oferta e variância intra-oferta da aderência) estima o menor efeito detectável, e esse número é reportado junto aos resultados.
 
 ### Pré-registro e ciência aberta
 
@@ -151,7 +151,7 @@ A pesquisa usa apenas dados públicos, anonimizados na origem e analisados de fo
 **Limitações:**
 
 - **Associação e causalidade:** efeitos fixos e o instrumento *shift-share* reduzem, mas não eliminam, vieses de dados observacionais.
-- **Território do estudante de EaD:** os microdados da PNP localizam a unidade de ensino, não a residência do estudante. A aderência da EaD é medida no território da unidade, e H2 é interpretada como diferença no vínculo com esse território.
+- **Território do estudante de EaD:** os microdados da PNP localizam a unidade de ensino, não a residência do estudante nem o polo (confirmado na edição 2023). A aderência da EaD é medida no território da unidade, e H2 é interpretada como diferença no vínculo com esse território.
 - **Emprego formal:** a RAIS não cobre informalidade nem MEI; setores com muita informalidade terão aderência subestimada.
 - **Atividade principal:** a CNAE principal esconde atividades secundárias.
 - **Série histórica da PNP:** mudanças de metodologia (como a reestruturação de 2024) exigem harmonização documentada.

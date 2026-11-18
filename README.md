@@ -7,7 +7,7 @@
 TCC · Especialização em EaD na Educação Profissional e Tecnológica · IFSul
 
 [![Status](https://img.shields.io/badge/status-em%20desenvolvimento-yellow)](#status)
-[![Fase](https://img.shields.io/badge/fase-prospec%C3%A7%C3%A3o%20de%20dados-blue)](docs/prospeccao/relatorio-viabilidade.md)
+[![Fase](https://img.shields.io/badge/viabilidade-confirmada-brightgreen)](docs/prospeccao/relatorio-viabilidade.md)
 [![Python](https://img.shields.io/badge/python-%E2%89%A53.11-3776AB?logo=python&logoColor=white)](pyproject.toml)
 [![pandas](https://img.shields.io/badge/pandas-2.x-150458?logo=pandas&logoColor=white)](https://pandas.pydata.org/)
 [![DuckDB](https://img.shields.io/badge/DuckDB-1.x-FFF000?logo=duckdb&logoColor=black)](https://duckdb.org/)
@@ -143,7 +143,10 @@ Relatório completo: [`docs/prospeccao/relatorio-viabilidade.md`](docs/prospecca
 | Ponte CBO | Boa para Enfermagem e Informática; falha em Administração, Agronegócio e Agropecuária | ⚠️ só como validação |
 | Variação temporal de `Q` | Correlação 0,93 entre 2019 e 2024; só 3,5% da variância é intra-território | ⚠️ mudou o desenho de H1a |
 | Variação do choque `S` | dp ≈ 0,26 em 5 anos | ✅ H1b identificável |
-| Plataforma Nilo Peçanha | Aguardando download manual | ⏳ pendente |
+| Plataforma Nilo Peçanha (safra 2022) | 2.641 ofertas técnicas presenciais e 111 EaD; evasão de 40% (presencial) e 50% (EaD); só há o município da unidade | ✅ viável |
+| Efeitos fixos cruzados (H1a) | 563/624 campi com ≥ 2 cursos; 107/140 cursos em ≥ 2 campi (99% das matrículas) | ✅ viável |
+| Poder para H2 (EaD) | 56% das matrículas EaD em Gestão e Negócios | ⚠️ calcular efeito mínimo detectável |
+| Casamento PNP ↔ CNCT | 99,6% das matrículas | ✅ viável |
 
 ## Estrutura do repositório
 
@@ -260,7 +263,8 @@ Meses relativos ao início do TCC. **Núcleo** antes de **extensões**.
 - [x] Estrutura do projeto, specs e ADRs
 - [x] Pré-projeto v2
 - [x] Prospecção: CNCT, CNAE, IBGE, RAIS (amostra)
-- [ ] Prospecção: Plataforma Nilo Peçanha
+- [x] Prospecção: Plataforma Nilo Peçanha (safra 2022)
+- [ ] Download das demais safras da PNP (2018–2025)
 - [ ] Revisão sistemática
 - [ ] Ingestão completa (RAIS 2015–2024, PNP)
 - [ ] Amostra de referência anotada

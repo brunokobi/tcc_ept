@@ -12,7 +12,7 @@ Data: 18/11/2026. Objetivo: verificar, com dados reais, se o plano das specs é 
 | RAIS vínculos | amostra Norte 2019 e 2024 processada | **viável** |
 | Ponte CBO (caminho O) | testada na amostra | **viável como validação, não como mapa principal** |
 | Variação temporal da aderência | medida na amostra | **muda o desenho de H1a** |
-| PNP microdados | **pendente** — portal do MEC atrás de verificação anti-robô; download manual pelo pesquisador | a verificar |
+| PNP microdados (eficiência 2023, matrículas 2023) | processado | **viável; H2 com poder limitado** |
 
 ## 1. CNCT (4ª edição, conteúdo alterado em 29/11/2024)
 - Fonte: PDF consolidado de 548 páginas (cópia pública em saude.sp.gov.br); parser em `src/tcc_aderencia/ingest/cnct.py` → `data/external/cnct4_cursos.csv`.
@@ -56,14 +56,48 @@ Choque de demanda `S` = Δ log do emprego ligado ao curso em 5 anos (células > 
 - **H1a/H2:** variação transversal com efeitos fixos de campus × ciclo e curso × ciclo.
 - **H1b:** variação intra-oferta do choque `S`, instrumentado por shift-share.
 
-## 7. PNP (pendente)
-Perguntas a responder assim que os arquivos forem baixados:
-1. **Volume de ofertas técnicas EaD** por ano e por eixo (poder para H2).
-2. **Ciclos completos por oferta** no arquivo de eficiência acadêmica (série desde a PNP 2018).
-3. **Campi com ≥ 2 cursos e cursos em ≥ 2 campi** (requisito dos FE cruzados de H1a).
-4. **Localização:** a documentação de 2020 indica só o município da unidade de ensino; confirmar se existe polo ou residência nas edições recentes (P1).
-5. **Mudança de estrutura em 2024** (ofício SETEC 81/2024): harmonização da série.
-6. **Casamento curso PNP ↔ CNCT** (nomes; cursos com nomenclatura anterior).
+## 7. Plataforma Nilo Peçanha (eficiência acadêmica 2023)
+Arquivos baixados manualmente pelo pesquisador em `dados/` (fora do git): `microdados_eficiencia_academica_2023.csv` (400 MB, UTF-8, `;`, decimal `,`) e as versões JSON de eficiência e matrículas 2023.
+
+**Estrutura:** 801.029 matrículas de 13.827 ciclos, 650 unidades, 56 instituições. O arquivo de eficiência de um ano reúne os ciclos com **término previsto no ano anterior** (aqui, 2022): cada edição é uma "safra" de conclusão. O painel de ciclos exige baixar as edições de vários anos.
+
+**Localização (P1):** só há o município da **unidade de ensino** (`Código do Município com DV`). Não há residência do estudante nem polo; as ofertas EaD aparecem registradas na unidade (70 unidades, 70 municípios). → ADR-0002 aceita: território da EaD = território da unidade.
+
+**Cursos técnicos (safra 2022):**
+
+| Modalidade | Ciclos | Ofertas | Matrículas | Evasão | Conclusão | Retidos |
+|---|---|---|---|---|---|---|
+| Presencial | 3.244 | 2.641 | 131.989 | 40,4% | 48,1% | 11,4% |
+| EaD | 270 | 111 | 13.842 | 50,0% | 36,4% | 13,6% |
+
+| Tipo de oferta × modalidade | Matrículas | Evasão |
+|---|---|---|
+| Integrado, presencial | 80.647 | 28,6% |
+| Subsequente, presencial | 35.649 | 58,3% |
+| Subsequente, EaD | 13.292 | 49,3% |
+| Concomitante, presencial | 9.276 | 57,5% |
+| PROEJA integrado, presencial | 5.913 | 65,2% |
+
+- A evasão do subsequente (adultos) é o dobro da do integrado, o que é coerente com o mecanismo de custo de oportunidade (H1b), que deve aparecer mais forte no subsequente.
+- O subsequente EaD evade **menos** que o subsequente presencial. Isso merece atenção na análise, pela possível diferença de perfil dos ingressantes.
+
+**Estrutura para os efeitos fixos cruzados (H1a):**
+- 563 de 624 unidades têm ≥ 2 cursos técnicos (média de 3,6).
+- 107 de 140 cursos são ofertados em ≥ 2 unidades, e esses cursos somam **99% das matrículas**.
+- → **FE de campus × ciclo e curso × ciclo são viáveis.**
+
+**EaD (H2):**
+- 111 ofertas, 270 ciclos, 13.842 matrículas por safra, em 24 instituições.
+- **56% das matrículas EaD estão em Gestão e Negócios**, seguida de Informação e Comunicação (14%).
+- Só 35 cursos EaD, 14 deles em ≥ 2 unidades.
+- → Com 6 a 7 safras (edições 2018–2024) há cerca de 700 a 800 ciclos EaD, suficientes para estimar a interação `Q × EaD`. A variação, porém, vem concentrada em poucos eixos. **H2 deve ter seu efeito mínimo detectável calculado antes do pré-registro**; se for alto, H2 vira hipótese secundária.
+- Gestão e Negócios, o maior eixo EaD, **não tem CBO no CNCT** (Administração). Isso reforça o mapa por texto (T) como principal.
+
+**Casamento PNP ↔ CNCT:** 132 de 140 nomes de curso casam por nome normalizado ou nomenclatura anterior, cobrindo **99,6% das matrículas**. Sobram 8 nomes, como Análises Químicas e "Análise e Desenvolvimento de Sistemas" (registro inconsistente); vão para `data/reference/pnp_cnct_overrides.csv`.
+
+**Qualidade dos dados:** nos JSON, os campos `Região` e `Município` estão deslocados (trazem a instituição e a região). **Usar o CSV.**
+
+**Próximo download necessário:** eficiência acadêmica das edições 2018–2022 e 2024–2025 (CSV), para montar o painel de safras.
 
 ## Arquivos gerados
 - `data/external/cnct4_cursos.csv`, `cnae_subclasses.csv`, `ibge_municipios_rgi.csv`

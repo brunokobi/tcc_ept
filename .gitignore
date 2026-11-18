@@ -25,3 +25,7 @@ data/external/**
 
 # Cache de LLM/embeddings
 .cache/
+
+# Downloads manuais (PNP etc.)
+dados/
+*:Zone.Identifier
