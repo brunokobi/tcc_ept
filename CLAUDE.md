@@ -9,7 +9,7 @@ Projeto **pessoal acadêmico** do Bruno (TCC). Não é produto Vennx.
 - Specs em `docs/spec/` são a fonte de verdade do que implementar. Mudou decisão → ADR em `docs/adr/`.
 - **Pré-registro:** nenhum modelo de efeito (`src/tcc_aderencia/models/`) pode ser estimado sobre os dados reais antes do pré-registro no OSF (`docs/pre-registro/`). Desvios do plano vão para `docs/pre-registro/desvios.md`.
 - Apenas dados públicos e agregados; nenhum dado pessoal. Nunca ler `.env*`.
-- Dados brutos ficam fora do git; a amostra de referência anotada (`data/reference/`) é versionada.
+- Versionados: `data/pnp/` (microdados de eficiência acadêmica da PNP em Parquet), `data/external/` (CNCT, CNAE, IBGE) e `data/reference/`. Fora do git: `dados/` (CSVs originais), `data/raw/` e `data/interim/` (RAIS, reproduzível pelo script). Arquivo > 100 MB nunca vai pro git.
 
 ## Comandos
 - Instalar: `pip install -e ".[dev,llm]"`

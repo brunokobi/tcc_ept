@@ -18,10 +18,10 @@ secrets/
 data/raw/**
 data/interim/**
 data/processed/**
-data/external/**
 !data/**/.gitkeep
-# A amostra de referência anotada É versionada
+# Versionados: amostra de referência, dados externos pequenos e PNP em Parquet
 !data/reference/**
+!data/pnp/**
 
 # Cache de LLM/embeddings
 .cache/
