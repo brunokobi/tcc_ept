@@ -6,6 +6,7 @@
 | [cronograma.md](cronograma.md) | Etapas, meses e marcos |
 | [pendencias.md](pendencias.md) | Pontos a verificar e decisões em aberto |
 | [prospeccao/relatorio-viabilidade.md](prospeccao/relatorio-viabilidade.md) | Prospecção inicial dos dados (viabilidade) |
+| [prospeccao/verificacao-dados-completos.md](prospeccao/verificacao-dados-completos.md) | Verificação final de viabilidade com todos os dados (RAIS 2012–2025 + PNP 2019–2023) |
 | [preprojeto/preprojeto-v2.md](preprojeto/preprojeto-v2.md) | Pré-projeto v2 (revisão para A1) |
 | **Specs** | |
 | [spec/00-visao-geral.md](spec/00-visao-geral.md) | Pergunta, hipóteses, objetivos e arquitetura do pipeline |

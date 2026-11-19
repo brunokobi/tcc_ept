@@ -4,6 +4,8 @@ Data: 18/11/2026. Objetivo: verificar, com dados reais, se o plano das specs é 
 
 ## Resumo
 
+> **Atualização de 19/11/2026:** verificação com todos os dados (RAIS 2012–2025 nacional) em [verificacao-dados-completos.md](verificacao-dados-completos.md). Veredito: **projeto viável**; H2 com poder limitado.
+
 | Fonte | Status | Veredito |
 |---|---|---|
 | CNCT 4ª ed. | baixado e processado | **viável** |
@@ -13,6 +15,8 @@ Data: 18/11/2026. Objetivo: verificar, com dados reais, se o plano das specs é 
 | Ponte CBO (caminho O) | testada na amostra | **viável como validação, não como mapa principal** |
 | Variação temporal da aderência | medida na amostra | **muda o desenho de H1a** |
 | PNP microdados (eficiência 2023, matrículas 2023) | processado | **viável; H2 com poder limitado** |
+| RAIS 2012–2017 (layout por UF) | AC e ES 2012 testados | **viável** |
+| Poder estatístico (MDE) | simulado com a estrutura real (§9) | **H1a com folga; H2 no limite** |
 
 ## 1. CNCT (4ª edição, conteúdo alterado em 29/11/2024)
 - Fonte: PDF consolidado de 548 páginas (cópia pública em saude.sp.gov.br); parser em `src/tcc_aderencia/ingest/cnct.py` → `data/external/cnct4_cursos.csv`.
@@ -32,6 +36,7 @@ Data: 18/11/2026. Objetivo: verificar, com dados reais, se o plano das specs é 
 - Volume 2015–2024: ≈ 28 GB compactados, ≈ 200 GB descompactados; processamento arquivo a arquivo com DuckDB ≈ 90 s/GB, ≈ 0,5 GB de RAM → **4–5 h no total**; resultado agregado de poucas centenas de MB.
 - Colunas necessárias presentes em todos os anos testados: subclasse CNAE 2.0 (7 dígitos, 0% ausente no Norte 2024), município (6 dígitos), vínculo ativo em 31/12, CBO 2002 (≈ 1% fora do padrão).
 - **Layout muda entre anos:** 2019 usa `;` e nomes curtos (`CNAE 2.0 Subclasse`, `Município`, `Vínculo Ativo 31/12`, `CBO Ocupação 2002`); 2024 usa `,` e nomes com sufixo ` - Código`. A ingestão precisa de um mapa de colunas por ano (MTE publica de-para desde 2024).
+- **2012 (layout por UF), testado em 18/11/2026:** AC e ES têm as mesmas 4 colunas, com os mesmos nomes de 2019 (`Município`, `CNAE 2.0 Subclasse`, `CBO Ocupação 2002`, `Vínculo Ativo 31/12`), separador `;`, 0% de CNAE ou CBO com tamanho errado e número de municípios correto (22 e 78). Cada ano tem 27 arquivos de UF mais um de estabelecimentos (`ESTB`/`Estb`), que o filtro descarta. O volume de 2012–2025 é de ≈ 38 GB compactados.
 - Norte 2024: 3,55 milhões de vínculos ativos, 450 municípios, 40.229 células município × subclasse.
 
 ## 5. Ponte CBO (caminho O) — teste na amostra Norte 2024
@@ -118,6 +123,27 @@ As 6 edições têm as **mesmas 54 colunas**. Cada edição reúne os ciclos com
 **Total disponível:** cerca de 940 mil matrículas técnicas em 6 safras (2017–2022). Sem 2018 restam cerca de 56 mil matrículas EaD e cerca de 460 ciclos/ofertas EaD.
 
 **RAIS necessária:** ciclos de até 4 anos que terminam entre 2017 e 2022 começam a partir de cerca de 2013, e `Q` é medido no ano anterior ao início. A RAIS precisa cobrir **2012–2022** (2023–2024 para as safras seguintes).
+
+## 9. Poder estatístico: efeito mínimo detectável (MDE)
+
+Simulação exigida pela spec 04 antes do pré-registro. Código em `tcc_aderencia.models.power`, sobre a tabela de ciclos de `tcc_aderencia.ingest.pnp.load_cycles`.
+
+**Desenho: injeção de efeito.** Mantêm-se a estrutura real (18.393 ciclos técnicos das edições 2019–2023, 920 deles EaD, com matrículas, campus, curso e território) e o **desfecho real**. `Q` é **sorteado** N(0,1) por região imediata × curso, constante entre ciclos, como na RAIS (corr. 0,93). Como `Q` é aleatório, nenhum efeito real é estimado, o que é compatível com o pré-registro. Estimação: LPM ponderado por matrículas, com `Q` e `Q×EaD`, FE de campus × edição e curso × edição, EP agrupado por região imediata, 1.000 sorteios, α = 0,05 e poder de 80%. A edição 2018 fica de fora, por não ter código de ciclo.
+
+**MDE em pontos percentuais por 1 dp do componente idiossincrático de Q** (território × curso, o que sobra após os FE). Os valores usam o valor crítico corrigido pelo tamanho empírico do teste:
+
+| Especificação | Desfecho | H1a (β₁) | H2 (β₃, Q×EaD) | Tamanho nominal 5% do teste de H2 |
+|---|---|---|---|---|
+| FE campus×t + curso×t | evasão | 0,80 | **4,65** | 10,0% |
+| FE campus×t + curso×t | conclusão | 1,00 | **4,27** | 7,9% |
+| FE campus×modalidade×t + curso×t | evasão | 0,79 | **5,34** | 15,4% |
+| FE campus×modalidade×t + curso×t | conclusão | 0,98 | **3,18** | 9,3% |
+
+**Leitura:**
+- **H1a tem poder com folga.** Detecta efeitos de cerca de 1 p.p. por dp de Q, sobre uma evasão média de 41%, e o teste tem tamanho correto (5,9–6,7%).
+- **H2 só detecta diferenças de inclinação EaD × presencial de 4 a 5 p.p. por dp de Q.** É um efeito grande para a literatura de mercado local. Se só uma fração `f` da variância de Q for idiossincrática, o MDE por dp de Q cresce em 1/√f (com f = 0,5, fica em ≈ 6–7,5 p.p.). → **H2 deve ser secundária** no pré-registro, ou ser declarada com o MDE explícito.
+- **O EP agrupado é anticonservador para H2.** A EaD está em 97 de 372 regiões imediatas, e 5 delas concentram 48% das matrículas EaD, então há poucos clusters efetivos. → Pré-registrar **bootstrap selvagem por cluster** ou **inferência por randomização** para H2 (pendência P15).
+- Os números serão refeitos com o Q real (após a RAIS e o classificador), que só mexe na escala (fração f), não na estrutura.
 
 ## Arquivos gerados
 - `data/external/cnct4_cursos.csv`, `cnae_subclasses.csv`, `ibge_municipios_rgi.csv`

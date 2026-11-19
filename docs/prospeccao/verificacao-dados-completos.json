@@ -1,0 +1,453 @@
+{
+  "rais_anos": [
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025
+  ],
+  "rais_qualidade": [
+    {
+      "ano": 2012,
+      "vinculos": 47458712.0,
+      "celulas": 5266752,
+      "municipios": 5565,
+      "pct_mun_sem_ibge": 0.0,
+      "pct_cnae_fora_23": 0.01094,
+      "pct_cbo_invalido": 0.00065,
+      "oficial_mi": 47.459,
+      "dif_oficial_pct": -0.00061
+    },
+    {
+      "ano": 2013,
+      "vinculos": 48948433.0,
+      "celulas": 5459909,
+      "municipios": 5570,
+      "pct_mun_sem_ibge": 0.0,
+      "pct_cnae_fora_23": 0.01126,
+      "pct_cbo_invalido": 0.00122,
+      "oficial_mi": 48.948,
+      "dif_oficial_pct": 0.00088
+    },
+    {
+      "ano": 2014,
+      "vinculos": 49571510.0,
+      "celulas": 5607828,
+      "municipios": 5570,
+      "pct_mun_sem_ibge": 0.0,
+      "pct_cnae_fora_23": 0.01161,
+      "pct_cbo_invalido": 0.0012,
+      "oficial_mi": 49.572,
+      "dif_oficial_pct": -0.00099
+    },
+    {
+      "ano": 2015,
+      "vinculos": 48060807.0,
+      "celulas": 5605017,
+      "municipios": 5569,
+      "pct_mun_sem_ibge": 0.0,
+      "pct_cnae_fora_23": 0.00584,
+      "pct_cbo_invalido": 0.00129,
+      "oficial_mi": 48.061,
+      "dif_oficial_pct": -0.0004
+    },
+    {
+      "ano": 2016,
+      "vinculos": 46060198.0,
+      "celulas": 5482406,
+      "municipios": 5570,
+      "pct_mun_sem_ibge": 0.0,
+      "pct_cnae_fora_23": 0.00585,
+      "pct_cbo_invalido": 0.00134,
+      "oficial_mi": 46.06,
+      "dif_oficial_pct": 0.00043
+    },
+    {
+      "ano": 2017,
+      "vinculos": 46281590.0,
+      "celulas": 5499136,
+      "municipios": 5570,
+      "pct_mun_sem_ibge": 0.0,
+      "pct_cnae_fora_23": 0.00586,
+      "pct_cbo_invalido": 0.00133,
+      "oficial_mi": 46.282,
+      "dif_oficial_pct": -0.00089
+    },
+    {
+      "ano": 2018,
+      "vinculos": 46631115.0,
+      "celulas": 5507870,
+      "municipios": 5570,
+      "pct_mun_sem_ibge": 0.0,
+      "pct_cnae_fora_23": 0.0,
+      "pct_cbo_invalido": 0.00118,
+      "oficial_mi": 46.632,
+      "dif_oficial_pct": -0.0019
+    },
+    {
+      "ano": 2019,
+      "vinculos": 46716492.0,
+      "celulas": 5516751,
+      "municipios": 5570,
+      "pct_mun_sem_ibge": 0.0,
+      "pct_cnae_fora_23": 0.0,
+      "pct_cbo_invalido": 0.0,
+      "oficial_mi": 47.555,
+      "dif_oficial_pct": -1.76324
+    },
+    {
+      "ano": 2020,
+      "vinculos": 46236176.0,
+      "celulas": 5475164,
+      "municipios": 5570,
+      "pct_mun_sem_ibge": 0.0,
+      "pct_cnae_fora_23": 0.0,
+      "pct_cbo_invalido": 1e-05,
+      "oficial_mi": 46.236,
+      "dif_oficial_pct": 0.00038
+    },
+    {
+      "ano": 2021,
+      "vinculos": 48728871.0,
+      "celulas": 5745205,
+      "municipios": 5571,
+      "pct_mun_sem_ibge": 0.0,
+      "pct_cnae_fora_23": 0.0,
+      "pct_cbo_invalido": 0.00012,
+      "oficial_mi": 48.728,
+      "dif_oficial_pct": 0.00179
+    },
+    {
+      "ano": 2022,
+      "vinculos": 52790864.0,
+      "celulas": 6237237,
+      "municipios": 5571,
+      "pct_mun_sem_ibge": 4e-05,
+      "pct_cnae_fora_23": 6e-05,
+      "pct_cbo_invalido": 0.0,
+      "oficial_mi": 52.777,
+      "dif_oficial_pct": 0.02627
+    },
+    {
+      "ano": 2023,
+      "vinculos": 55818007.0,
+      "celulas": 6416892,
+      "municipios": 5572,
+      "pct_mun_sem_ibge": 1e-05,
+      "pct_cnae_fora_23": 2e-05,
+      "pct_cbo_invalido": 0.0,
+      "oficial_mi": NaN,
+      "dif_oficial_pct": NaN
+    },
+    {
+      "ano": 2024,
+      "vinculos": 57800651.0,
+      "celulas": 6548996,
+      "municipios": 5572,
+      "pct_mun_sem_ibge": 0.00019,
+      "pct_cnae_fora_23": 8e-05,
+      "pct_cbo_invalido": 0.0,
+      "oficial_mi": NaN,
+      "dif_oficial_pct": NaN
+    },
+    {
+      "ano": 2025,
+      "vinculos": 60691770.0,
+      "celulas": 6722460,
+      "municipios": 5572,
+      "pct_mun_sem_ibge": 5e-05,
+      "pct_cnae_fora_23": 7e-05,
+      "pct_cbo_invalido": 0.0,
+      "oficial_mi": NaN,
+      "dif_oficial_pct": NaN
+    }
+  ],
+  "ponte_o": [
+    {
+      "ano": 2012,
+      "pct_vinculos_em_cbo_de_curso": 0.18731730435499389,
+      "cbos_de_curso_presentes": 366,
+      "cbos_de_curso_total": 374
+    },
+    {
+      "ano": 2013,
+      "pct_vinculos_em_cbo_de_curso": 0.18899089170025116,
+      "cbos_de_curso_presentes": 368,
+      "cbos_de_curso_total": 374
+    },
+    {
+      "ano": 2014,
+      "pct_vinculos_em_cbo_de_curso": 0.18944462252612437,
+      "cbos_de_curso_presentes": 370,
+      "cbos_de_curso_total": 374
+    },
+    {
+      "ano": 2015,
+      "pct_vinculos_em_cbo_de_curso": 0.19119212875472524,
+      "cbos_de_curso_presentes": 372,
+      "cbos_de_curso_total": 374
+    },
+    {
+      "ano": 2016,
+      "pct_vinculos_em_cbo_de_curso": 0.1908559533330708,
+      "cbos_de_curso_presentes": 372,
+      "cbos_de_curso_total": 374
+    },
+    {
+      "ano": 2017,
+      "pct_vinculos_em_cbo_de_curso": 0.19080306013687084,
+      "cbos_de_curso_presentes": 372,
+      "cbos_de_curso_total": 374
+    },
+    {
+      "ano": 2018,
+      "pct_vinculos_em_cbo_de_curso": 0.19247004923643796,
+      "cbos_de_curso_presentes": 373,
+      "cbos_de_curso_total": 374
+    },
+    {
+      "ano": 2019,
+      "pct_vinculos_em_cbo_de_curso": 0.19352236465015396,
+      "cbos_de_curso_presentes": 373,
+      "cbos_de_curso_total": 374
+    },
+    {
+      "ano": 2020,
+      "pct_vinculos_em_cbo_de_curso": 0.190822722882619,
+      "cbos_de_curso_presentes": 372,
+      "cbos_de_curso_total": 374
+    },
+    {
+      "ano": 2021,
+      "pct_vinculos_em_cbo_de_curso": 0.19195328781575915,
+      "cbos_de_curso_presentes": 373,
+      "cbos_de_curso_total": 374
+    },
+    {
+      "ano": 2022,
+      "pct_vinculos_em_cbo_de_curso": 0.1912190904850506,
+      "cbos_de_curso_presentes": 374,
+      "cbos_de_curso_total": 374
+    },
+    {
+      "ano": 2023,
+      "pct_vinculos_em_cbo_de_curso": 0.19127309579505408,
+      "cbos_de_curso_presentes": 371,
+      "cbos_de_curso_total": 374
+    },
+    {
+      "ano": 2024,
+      "pct_vinculos_em_cbo_de_curso": 0.19072262698217707,
+      "cbos_de_curso_presentes": 372,
+      "cbos_de_curso_total": 374
+    },
+    {
+      "ano": 2025,
+      "pct_vinculos_em_cbo_de_curso": 0.1913509690028813,
+      "cbos_de_curso_presentes": 372,
+      "cbos_de_curso_total": 374
+    }
+  ],
+  "variacao_q": [
+    {
+      "ano": 2012,
+      "celulas": 49972,
+      "celulas_gt50": 13776,
+      "dp_log_q_gt50": 0.8525047697565874,
+      "f_idiossincratica_gt50": 0.5610501859760373,
+      "f_idiossincratica_todas": 0.7874210273793014
+    },
+    {
+      "ano": 2013,
+      "celulas": 50980,
+      "celulas_gt50": 14192,
+      "dp_log_q_gt50": 0.8429873144467742,
+      "f_idiossincratica_gt50": 0.5722272945683741,
+      "f_idiossincratica_todas": 0.7930005248276273
+    },
+    {
+      "ano": 2014,
+      "celulas": 51560,
+      "celulas_gt50": 14472,
+      "dp_log_q_gt50": 0.8393450138819698,
+      "f_idiossincratica_gt50": 0.5640635496523395,
+      "f_idiossincratica_todas": 0.7903990058321158
+    },
+    {
+      "ano": 2015,
+      "celulas": 51699,
+      "celulas_gt50": 14388,
+      "dp_log_q_gt50": 0.8371728010308185,
+      "f_idiossincratica_gt50": 0.5605608806694887,
+      "f_idiossincratica_todas": 0.7932704834548723
+    },
+    {
+      "ano": 2016,
+      "celulas": 51346,
+      "celulas_gt50": 14161,
+      "dp_log_q_gt50": 0.8316438127369109,
+      "f_idiossincratica_gt50": 0.5612316405565735,
+      "f_idiossincratica_todas": 0.7946711193645976
+    },
+    {
+      "ano": 2017,
+      "celulas": 51726,
+      "celulas_gt50": 14269,
+      "dp_log_q_gt50": 0.8221397961388401,
+      "f_idiossincratica_gt50": 0.5671520975977393,
+      "f_idiossincratica_todas": 0.7885536585057721
+    },
+    {
+      "ano": 2018,
+      "celulas": 51883,
+      "celulas_gt50": 14361,
+      "dp_log_q_gt50": 0.8251860094558348,
+      "f_idiossincratica_gt50": 0.566208244807985,
+      "f_idiossincratica_todas": 0.7744618725003127
+    },
+    {
+      "ano": 2019,
+      "celulas": 51821,
+      "celulas_gt50": 14406,
+      "dp_log_q_gt50": 0.8276856580644247,
+      "f_idiossincratica_gt50": 0.5656129418666952,
+      "f_idiossincratica_todas": 0.7692793852442765
+    },
+    {
+      "ano": 2020,
+      "celulas": 51564,
+      "celulas_gt50": 14357,
+      "dp_log_q_gt50": 0.8356028529562157,
+      "f_idiossincratica_gt50": 0.5664279813527615,
+      "f_idiossincratica_todas": 0.7702839701964558
+    },
+    {
+      "ano": 2021,
+      "celulas": 52446,
+      "celulas_gt50": 14946,
+      "dp_log_q_gt50": 0.8166883374529137,
+      "f_idiossincratica_gt50": 0.5840354179594207,
+      "f_idiossincratica_todas": 0.7871863275517362
+    },
+    {
+      "ano": 2022,
+      "celulas": 53399,
+      "celulas_gt50": 15622,
+      "dp_log_q_gt50": 0.8115027945448889,
+      "f_idiossincratica_gt50": 0.5928811294224138,
+      "f_idiossincratica_todas": 0.7751946656456379
+    },
+    {
+      "ano": 2023,
+      "celulas": 53787,
+      "celulas_gt50": 16105,
+      "dp_log_q_gt50": 0.7979335752312691,
+      "f_idiossincratica_gt50": 0.6060017400899604,
+      "f_idiossincratica_todas": 0.7885912994254946
+    },
+    {
+      "ano": 2024,
+      "celulas": 53818,
+      "celulas_gt50": 16450,
+      "dp_log_q_gt50": 0.803119648317305,
+      "f_idiossincratica_gt50": 0.59920306537231,
+      "f_idiossincratica_todas": 0.7891954605601366
+    },
+    {
+      "ano": 2025,
+      "celulas": 54497,
+      "celulas_gt50": 16838,
+      "dp_log_q_gt50": 0.8006335069557583,
+      "f_idiossincratica_gt50": 0.6112982565517725,
+      "f_idiossincratica_todas": 0.7794753228668101
+    }
+  ],
+  "estabilidade_q_5anos": [
+    {
+      "anos": "2012-2017",
+      "pares": 12470,
+      "corr": 0.912731945518818,
+      "dp_delta": 0.33576249131681096
+    },
+    {
+      "anos": "2013-2018",
+      "pares": 12709,
+      "corr": 0.9006430142807191,
+      "dp_delta": 0.3564536378000845
+    },
+    {
+      "anos": "2014-2019",
+      "pares": 12872,
+      "corr": 0.9024487237576977,
+      "dp_delta": 0.35417285405719395
+    },
+    {
+      "anos": "2015-2020",
+      "pares": 12860,
+      "corr": 0.9080794224605107,
+      "dp_delta": 0.34626372771610947
+    },
+    {
+      "anos": "2016-2021",
+      "pares": 13009,
+      "corr": 0.9161499570381342,
+      "dp_delta": 0.3221057841075261
+    },
+    {
+      "anos": "2017-2022",
+      "pares": 13326,
+      "corr": 0.9084126545962133,
+      "dp_delta": 0.33987248177137214
+    },
+    {
+      "anos": "2018-2023",
+      "pares": 13553,
+      "corr": 0.9095621265632423,
+      "dp_delta": 0.3365307936754495
+    },
+    {
+      "anos": "2019-2024",
+      "pares": 13680,
+      "corr": 0.9097749354644672,
+      "dp_delta": 0.33898122435596395
+    },
+    {
+      "anos": "2020-2025",
+      "pares": 13715,
+      "corr": 0.9087399767436255,
+      "dp_delta": 0.343160275334043
+    }
+  ],
+  "pnp_cobertura": {
+    "ciclos": 18393,
+    "pct_matriculas_curso_cnct": 0.9985011817605349,
+    "pct_matriculas_com_q": 0.8250270471001621,
+    "pct_matriculas_ead_com_q": 0.5810247432727536,
+    "cursos_sem_cnct": {
+      "técnico em manutenção de aeronaves em célula": 6,
+      "análise e desenvolvimento de sistemas": 5,
+      "técnico em manutenção de aeronáutica em célula": 3,
+      "técnico em infantaria": 2,
+      "técnico em manutenção de aeronáutica em aviônicos": 2,
+      "técnico em gerência de saúde": 2,
+      "técnico em manutenção em máquinas pesadas": 2
+    }
+  },
+  "mde_reescalado_pp": {
+    "f_mediana": 0.5667900394752504,
+    "h1a_evasao": 1.0626221936336955,
+    "h2_evasao_A": 6.176491500495856,
+    "h2_evasao_B": 7.093003142504917,
+    "h2_conclusao_A": 5.671745958519849,
+    "h2_conclusao_B": 4.22392321969394
+  }
+}

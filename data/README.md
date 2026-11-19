@@ -7,7 +7,7 @@
 | `external/cnae_subclasses.csv` | CNAE 2.3, 1.332 subclasses com atividades e notas | ✅ | `tcc_aderencia.ingest.cnct.load_cnae_subclasses()` |
 | `external/ibge_municipios_rgi.csv` | Municípios × regiões imediatas e intermediárias (IBGE 2017) | ✅ | API de localidades do IBGE |
 | `reference/` | Amostra de referência anotada (CNAE → eixo) | ✅ | Anotação manual (`annotation/PROTOCOLO.md`) |
-| `raw/`, `interim/` | RAIS (arquivos `.7z` e agregados) | ❌ | `python -m tcc_aderencia.ingest.rais <ano>` |
+| `raw/`, `interim/` | RAIS 2012–2025 (214 arquivos `.7z`, 37 GB em `raw/rais/<ano>/`; agregados município × subclasse CNAE × CBO, ≈ 300 MB em `interim/rais/<ano>/`) | ❌ | `python -m tcc_aderencia.ingest.rais <ano>` (baixa, agrega e grava `MANIFEST.json`) |
 
 ## PNP: linhas por edição
 

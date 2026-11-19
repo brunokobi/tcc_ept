@@ -30,12 +30,23 @@ COLS = {
 }
 
 
+def is_vinculos_file(name: str, year: int) -> bool:
+    """Vínculos archives: regional `RAIS_VINC_PUB_*` from 2018; one per UF (`AC2017.7z`) before,
+    alongside an establishments file (`ESTB2017.7z` / `Estb2012.7z`) that must be skipped."""
+    n = Path(name).name.upper()
+    if not n.endswith(".7Z"):
+        return False
+    if year >= 2018:
+        return "VINC" in n
+    return not n.startswith("ESTB")
+
+
 def list_vinculos_files(year: int) -> list[str]:
     with ftplib.FTP(FTP_HOST, timeout=120) as ftp:
         ftp.login()
         ftp.encoding = "latin-1"
         names = ftp.nlst(FTP_DIR.format(year=year))
-    return sorted(n for n in names if "VINC" in n.upper() and n.lower().endswith(".7z"))
+    return sorted(n for n in names if is_vinculos_file(n, year))
 
 
 def download(remote: str, dest: Path) -> Path:
@@ -77,7 +88,7 @@ def aggregate_file(path: Path, year: int, out: Path) -> dict:
           select {year} as ano,
                  substr(trim("{c["mun"]}"), 1, 6) as mun6,
                  lpad(trim("{c["cnae"]}"), 7, '0') as cnae_subclasse,
-                 trim("{c["cbo"]}") as cbo,
+                 lpad(trim("{c["cbo"]}"), 6, '0') as cbo,
                  count(*) as vinculos
           from read_csv('{path}', sep='{sep}', quote='"', header=true, all_varchar=true, encoding='latin-1')
           where trim("{c["ativo"]}") = '1'
