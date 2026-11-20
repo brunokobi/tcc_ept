@@ -1,6 +1,6 @@
 # Protocolo de anotação CNAE → eixo CNCT
 
-0. **Amostra:** 300 subclasses sorteadas por `scripts/sample_reference.py` (seção CNAE × faixa de emprego na RAIS 2019–2023, seed do projeto), em `data/reference/gold_v1.csv`, com `split` dev/teste já definido e a probabilidade de inclusão de cada subclasse (para ponderar as métricas). Cada avaliador anota a **sua** planilha, de forma independente (enquanto não houver segundo avaliador, ver ADR-0004: anotar primeiro as linhas `dev` e depois as de `teste`): `annotation/anotacao_avaliador_A.xlsx` (pesquisador) e `anotacao_avaliador_B.xlsx` (segundo avaliador, P12).
+0. **Amostra:** 300 subclasses sorteadas por `scripts/sample_reference.py` (seção CNAE × faixa de emprego na RAIS 2019–2023, seed do projeto), em `data/reference/gold_v1.csv`, com `split` dev/teste já definido e a probabilidade de inclusão de cada subclasse (para ponderar as métricas). Cada avaliador anota a **sua** planilha, de forma independente (**situação atual, ADR-0004:** a referência v1 foi anotada por LLM, coluna `anotador`; revisão humana de subamostra pendente): `annotation/anotacao_avaliador_A.xlsx` (pesquisador) e `anotacao_avaliador_B.xlsx` (segundo avaliador, P12).
 1. Para cada subclasse, ler descrição e notas explicativas da CNAE.
 2. Atribuir **eixo principal** (1 dos 13) e, se houver, **eixos secundários**; marcar `nao_se_aplica` quando nenhum curso técnico forma para a atividade.
 3. Registrar dúvidas em `nota`. Não consultar a saída do classificador durante a anotação.

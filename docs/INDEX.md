@@ -21,7 +21,7 @@
 | [adr/0001-edicao-cnct.md](adr/0001-edicao-cnct.md) | Qual edição do CNCT (4ª × 5ª) — *proposta* |
 | [adr/0002-definicao-territorio.md](adr/0002-definicao-territorio.md) | Unidade territorial — *proposta* |
 | [adr/0003-stack.md](adr/0003-stack.md) | Stack técnica — *aceita* |
-| [adr/0004-avaliador-unico.md](adr/0004-avaliador-unico.md) | Amostra de referência com avaliador único — *proposta* |
+| [adr/0004-avaliador-unico.md](adr/0004-avaliador-unico.md) | Amostra de referência anotada por LLM — *proposta* |
 | **Pré-registro e revisão** | |
 | [pre-registro/plano-osf.md](pre-registro/plano-osf.md) | Rascunho do pré-registro |
 | [pre-registro/desvios.md](pre-registro/desvios.md) | Registro de desvios do plano |
