@@ -29,4 +29,10 @@
 - [ ] Totais de vínculos RAIS por UF batem com o publicado no PDET (±1%).
 
 ## Log de harmonização
-_(preencher durante a execução)_
+- **PNP: unidade de observação.** Cada linha dos microdados de eficiência é uma matrícula, em todas as edições. Na edição 2018, o campo "Número de registros" não é peso.
+- **PNP 2018: ciclo reconstruído.** A edição não tem `Código do Ciclo Matricula`. O ciclo é reconstruído por unidade + curso + data de início + data de fim previsto + modalidade + tipo de oferta (`ingest.pnp.CYCLE_KEY`). Validação em 2019 e 2023, onde o código existe: a chave nunca divide um ciclo real e junta dois ciclos na mesma chave em 0,3% (2019) e 0,9% (2023) das chaves. O turno foi excluído, porque divide ciclos reais. Resultado: 3.925 ciclos e 193.343 matrículas, coluna `ciclo_reconstruido`.
+- **PNP: categorias de situação.** Evasão = `Evadidos` (2019+) ou `Evasão` (2018); conclusão = `Concluintes`/`Concluídos` (2023 separa os dois) ou `Conclusão` (2018).
+- **PNP ↔ CNCT:** nome normalizado (sem acento e sem "técnico em"), depois nomenclaturas anteriores do CNCT, depois exceções em `data/reference/pnp_cnct_overrides.csv` (7 nomes). Cobertura: 99,99% das matrículas de 2018–2023; fica de fora só Infantaria (militar). O eixo registrado na PNP diverge do eixo do CNCT em 0,8% dos ciclos (por exemplo, Biotecnologia aparece em Ambiente e Saúde na PNP e em Produção Industrial no CNCT); **usa-se o eixo do CNCT**.
+- **RAIS: CNAE.** 24 subclasses antigas (2.0–2.2) são convertidas para a 2.3 por `ingest.cnae.harmonize` (P17).
+- **RAIS: CBO.** O layout 2023+ grava o CBO sem o zero à esquerda; a ingestão completa o código até 6 dígitos.
+- Saída: `data/processed/pnp_ciclos.parquet` (22.318 ciclos técnicos de 2018–2023).
