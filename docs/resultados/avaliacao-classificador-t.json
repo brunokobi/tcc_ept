@@ -1,0 +1,189 @@
+{
+  "split": "teste",
+  "n_teste": 201,
+  "referencia": "LLM (ADR-0004), não gabarito humano",
+  "regra": "consenso dos dois provedores; desacordo -> baidu/ernie-5.5-flash-preview:free",
+  "metodos": {
+    "tfidf": {
+      "acuracia": 0.5174,
+      "macro_f1": 0.4582,
+      "ic95": [
+        0.3928,
+        0.5274
+      ],
+      "n": 201
+    },
+    "embeddings": {
+      "acuracia": 0.5224,
+      "macro_f1": 0.4705,
+      "ic95": [
+        0.4004,
+        0.5493
+      ],
+      "n": 201
+    },
+    "caminho_O": {
+      "acuracia": 0.592,
+      "macro_f1": 0.4513,
+      "ic95": [
+        0.3833,
+        0.5314
+      ],
+      "n": 201
+    },
+    "baidu/ernie-5.5-flash-preview:free": {
+      "acuracia": 0.8856,
+      "macro_f1": 0.8253,
+      "ic95": [
+        0.7486,
+        0.8778
+      ],
+      "n": 201
+    },
+    "nvidia/nemotron-3-ultra-550b-a55b:free": {
+      "acuracia": 0.8458,
+      "macro_f1": 0.7639,
+      "ic95": [
+        0.6797,
+        0.8139
+      ],
+      "n": 201
+    },
+    "llm_final": {
+      "acuracia": 0.8856,
+      "macro_f1": 0.8253,
+      "ic95": [
+        0.7486,
+        0.8778
+      ],
+      "n": 201
+    }
+  },
+  "alfa_inter_llm_teste": 0.8887,
+  "alfa_inter_llm_todas": 0.8982,
+  "consenso_teste": {
+    "n": 182,
+    "acuracia_com_consenso": 0.9066,
+    "acuracia_sem_consenso": 0.6842
+  },
+  "criterio_G2": {
+    "llm_final_ic_inf": 0.7486,
+    "tfidf_ic_sup": 0.5274,
+    "atingido": true
+  },
+  "mapa": {
+    "linhas": 84665,
+    "subclasses_com_w_T": 1256,
+    "subclasses_nao_se_aplica": 67,
+    "consenso_todas": 0.9114,
+    "spearman_wT_wO_mediana_por_curso": 0.1437,
+    "cursos_com_spearman": 152
+  },
+  "por_eixo_llm_final": [
+    {
+      "eixo": "Ambiente e Saúde",
+      "precisao": 0.8333,
+      "revocacao": 0.8824,
+      "f1": 0.8571,
+      "suporte": 17
+    },
+    {
+      "eixo": "Controle e Processos Industriais",
+      "precisao": 1.0,
+      "revocacao": 0.8667,
+      "f1": 0.9286,
+      "suporte": 15
+    },
+    {
+      "eixo": "Desenvolvimento Educacional e Social",
+      "precisao": 0.3333,
+      "revocacao": 0.1429,
+      "f1": 0.2,
+      "suporte": 7
+    },
+    {
+      "eixo": "Gestão e Negócios",
+      "precisao": 0.9841,
+      "revocacao": 0.9394,
+      "f1": 0.9612,
+      "suporte": 66
+    },
+    {
+      "eixo": "Informação e Comunicação",
+      "precisao": 0.75,
+      "revocacao": 0.75,
+      "f1": 0.75,
+      "suporte": 4
+    },
+    {
+      "eixo": "Infraestrutura",
+      "precisao": 0.8889,
+      "revocacao": 0.8889,
+      "f1": 0.8889,
+      "suporte": 18
+    },
+    {
+      "eixo": "Não se aplica (nenhum curso técnico)",
+      "precisao": 0.5,
+      "revocacao": 0.75,
+      "f1": 0.6,
+      "suporte": 8
+    },
+    {
+      "eixo": "Produção Alimentícia",
+      "precisao": 0.8889,
+      "revocacao": 1.0,
+      "f1": 0.9412,
+      "suporte": 8
+    },
+    {
+      "eixo": "Produção Cultural e Design",
+      "precisao": 0.7778,
+      "revocacao": 1.0,
+      "f1": 0.875,
+      "suporte": 7
+    },
+    {
+      "eixo": "Produção Industrial",
+      "precisao": 0.875,
+      "revocacao": 0.913,
+      "f1": 0.8936,
+      "suporte": 23
+    },
+    {
+      "eixo": "Recursos Naturais",
+      "precisao": 0.9444,
+      "revocacao": 0.9444,
+      "f1": 0.9444,
+      "suporte": 18
+    },
+    {
+      "eixo": "Segurança",
+      "precisao": 1.0,
+      "revocacao": 1.0,
+      "f1": 1.0,
+      "suporte": 1
+    },
+    {
+      "eixo": "Turismo, Hospitalidade e Lazer",
+      "precisao": 0.8889,
+      "revocacao": 0.8889,
+      "f1": 0.8889,
+      "suporte": 9
+    },
+    {
+      "eixo": "macro",
+      "precisao": 0.8204,
+      "revocacao": 0.8436,
+      "f1": 0.8253,
+      "suporte": 201
+    },
+    {
+      "eixo": "micro",
+      "precisao": 0.8856,
+      "revocacao": 0.8856,
+      "f1": 0.8856,
+      "suporte": 201
+    }
+  ]
+}
