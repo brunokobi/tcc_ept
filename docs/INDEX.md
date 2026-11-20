@@ -7,6 +7,7 @@
 | [pendencias.md](pendencias.md) | Pontos a verificar e decisões em aberto |
 | [prospeccao/relatorio-viabilidade.md](prospeccao/relatorio-viabilidade.md) | Prospecção inicial dos dados (viabilidade) |
 | [prospeccao/verificacao-dados-completos.md](prospeccao/verificacao-dados-completos.md) | Verificação final de viabilidade com todos os dados (RAIS 2012–2025 + PNP 2019–2023) |
+| [resultados/indices.json](resultados/indices.json) | Índices Q, S, B por ciclo: cobertura, distribuição, convergência T × O e robustez |
 | [resultados/avaliacao-classificador-t.json](resultados/avaliacao-classificador-t.json) | Avaliação única do classificador T no teste (marco G2): métricas, alfa inter-LLM, convergência T × O |
 | [preprojeto/preprojeto-v2.md](preprojeto/preprojeto-v2.md) | Pré-projeto v2 (revisão para A1) |
 | **Specs** | |
@@ -23,6 +24,7 @@
 | [adr/0002-definicao-territorio.md](adr/0002-definicao-territorio.md) | Unidade territorial — *proposta* |
 | [adr/0003-stack.md](adr/0003-stack.md) | Stack técnica — *aceita* |
 | [adr/0004-avaliador-unico.md](adr/0004-avaliador-unico.md) | Amostra de referência anotada por LLM — *proposta* |
+| [adr/0005-indices-q-s-b.md](adr/0005-indices-q-s-b.md) | Definições operacionais de Q, S e B (Bartik sobre emprego ligado, Q com L = 0, w_T esparso) — *proposta* |
 | **Pré-registro e revisão** | |
 | [pre-registro/plano-osf.md](pre-registro/plano-osf.md) | Rascunho do pré-registro |
 | [pre-registro/desvios.md](pre-registro/desvios.md) | Registro de desvios do plano |

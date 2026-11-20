@@ -12,9 +12,9 @@ Motivo: participação bruta mede urbanização em eixos como Gestão e Informa�
 `S(o) = ln L(r,c,t₁) − ln L(r,c,t₀)` (crescimento do emprego ligado ao curso no território durante o ciclo).
 
 ## B — instrumento shift-share para S
-`B(o) = Σ_s π(r,s,t₀−k) · g₋ᵣ(s, t₀→t₁) · w(s,c)/Σ_s w(s,c)`
-- `π`: participação da subclasse no território em ano base defasado
-- `g₋ᵣ`: crescimento nacional do emprego da subclasse excluindo o território *r* (leave-one-out)
+`B(o) = Σ_s z(r,c,s) · g₋ᵣ(s, t₀→t₁)`, com `z = w(s,c)·E(r,s,t₀−1) / L(r,c,t₀−1)` (ADR-0005)
+- `z`: participação da subclasse no emprego ligado ao curso no território, no ano base (t₀−1)
+- `g₋ᵣ = ln E₋ᵣ(s,t₁) − ln E₋ᵣ(s,t₀)`: crescimento nacional do emprego da subclasse excluindo o território *r* (leave-one-out)
 - Diagnósticos de Goldsmith-Pinkham et al. (pesos de Rotemberg) e Borusyak et al. (choques como unidade).
 
 ## Variantes de robustez
@@ -26,6 +26,9 @@ Motivo: participação bruta mede urbanização em eixos como Gestão e Informa�
 | R4 | estabelecimentos CNPJ em vez de vínculos |
 | R5 | território = região intermediária; = município da unidade |
 | R6 | CNCT 5ª edição (se oficial) |
+
+## Implementação
+`index/aderencia.py` (`territory_employment`, `linked_employment`, `cycle_indices`, `shift_share`) e `scripts/build_indices.py`. Q indefinido quando L = 0: ver ADR-0005.
 
 ## Saída
 `data/processed/indices.parquet`: `oferta_id, ciclo_id, territorio, curso, Q, S, B, R1..R6`.
