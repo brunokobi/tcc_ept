@@ -1,6 +1,6 @@
 # ADR-0005 — Definições operacionais de Q, S e B
 
-- **Status:** proposta (fechar antes do pré-registro)
+- **Status:** proposta (fechar antes do pré-registro); item 3 executado em 2026-11-21
 - **Data:** 2026-11-20
 
 ## Contexto
@@ -22,5 +22,11 @@ A spec 03 define Q, S e B, mas três pontos só apareceram ao calcular os índic
 
 ## Consequências
 - A spec 03 passa a citar esta ADR na definição de B.
-- A cobertura da análise principal é de 89% dos ciclos (80% dos ciclos EaD). Pré-registrar isso e comparar as características dos ciclos excluídos.
-- Se a segunda passada do LLM for feita, a cobertura sobe e a ADR é atualizada.
+- Antes da segunda passada, a cobertura da análise principal era de 89% dos ciclos (80% dos EaD); ver a atualização abaixo. Pré-registrar a cobertura e comparar as características dos ciclos excluídos.
+- **Atualização de 2026-11-21: segunda passada executada** (`scripts/run_course_weights.py`, ERNIE, 1.265 subclasses, média de 4,7 cursos por subclasse; o eixo principal aparece em 99,8% delas). Agora 188 dos 189 cursos civis têm alguma subclasse; só Tradução e Interpretação de Libras ficou sem nenhuma. Resultados:
+  - cobertura de Q de 89% para **98% dos ciclos** (EaD: de 80% para **96%**), com L = 0 em 364 ciclos;
+  - convergência T × O nos ciclos: Spearman de 0,60 para **0,65** (S: de 0,42 para 0,53; mediana por curso: de 0,47 para 0,59);
+  - Spearman entre S e B de 0,33 para 0,42;
+  - fração idiossincrática de Q: f = 0,38.
+
+  O w_T do mapa final é o multicurso (`metodo_T = llm_multicurso`). O item 2 (L = 0) continua valendo para os 364 ciclos restantes.

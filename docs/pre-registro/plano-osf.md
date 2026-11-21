@@ -1,6 +1,6 @@
 # Pré-registro (rascunho para o OSF)
 
-> Modelo: OSF Preregistration, dados secundários. Rascunho v2 de 2026-11-20, a revisar com o orientador. Nenhum efeito foi estimado. Pendências que precisam fechar antes de registrar: P20 (segunda passada do LLM, opcional), ADR-0004 e ADR-0005 (aceite), P2 (edição do CNCT).
+> Modelo: OSF Preregistration, dados secundários. Rascunho v2 de 2026-11-20, a revisar com o orientador. Nenhum efeito foi estimado. Pendências que precisam fechar antes de registrar: ADR-0004 e ADR-0005 (aceite) e P2 (edição do CNCT). A segunda passada do LLM (P20) foi feita em 2026-11-21.
 
 ## 1. Título e autores
 *Aderência territorial dos cursos técnicos da Rede Federal e evasão: presencial × EaD*. Bruno Kobi (IFSul), orientação: _(nome)_.
@@ -14,8 +14,8 @@ Desfecho principal: **evasão** do ciclo. Desfecho secundário: **conclusão**.
 ## 3. Dados
 - **PNP, eficiência acadêmica, edições 2018–2023:** cada ciclo aparece uma vez, na edição seguinte ao fim previsto, com a situação final das matrículas. Ciclos técnicos de 2011 a 2022 somam 22.316 ciclos, 1.855 deles EaD. Em 2018 o código do ciclo foi reconstruído (spec 01).
 - **RAIS, vínculos ativos em 31/12, 2012–2025:** agregados por região imediata do IBGE × subclasse CNAE 2.3 (harmonizada) × ano.
-- **CNCT 4ª ed.**, mapa CNAE → curso pelo classificador T (spec 02, avaliado no teste: macro-F1 0,83 [0,75; 0,88] contra a referência LLM) e caminho O (CBO) como robustez.
-- **Inclusão:** ciclo de curso técnico (integrado, concomitante, subsequente e PROEJA) com curso casado ao CNCT (99,99%), Q definido (L > 0; 89% dos ciclos, ADR-0005) e **≥ 5 matrículas** (exclui 1,5%).
+- **CNCT 4ª ed.**, mapa CNAE → curso pelo classificador T (spec 02). O eixo principal foi avaliado no teste: macro-F1 0,83 [0,75; 0,88] contra a referência LLM. Os pesos multicurso vêm da segunda passada (ADR-0005). O caminho O (CBO) entra como robustez.
+- **Inclusão:** ciclo de curso técnico (integrado, concomitante, subsequente e PROEJA) com curso casado ao CNCT (99,99%), Q definido (L > 0; 98% dos ciclos e 96% dos EaD, ADR-0005) e **≥ 5 matrículas** (exclui 1,5%).
 
 ## 4. Conhecimento prévio dos dados
 Antes do registro, o pesquisador viu:
@@ -46,12 +46,12 @@ Ele **não** viu nenhuma relação entre desfecho e Q, S ou B.
 - Critério para H2: β₃ > 0 com p de Holm < 0,05 pelo bootstrap selvagem. Um resultado nulo é interpretado à luz do MDE.
 
 ## 8. Poder (efeito mínimo detectável a 80%)
-Simulação por injeção de efeito com a estrutura real (relatório de viabilidade, §9). A fração idiossincrática do Q real (variância que sobra após os efeitos fixos de campus × t e curso × t) é **f = 0,39** (0,38 no caminho O; 0,39 por eixo). O MDE por 1 dp de Q fica:
+Simulação por injeção de efeito com a estrutura real (relatório de viabilidade, §9). A fração idiossincrática do Q real (variância que sobra após os efeitos fixos de campus × t e curso × t) é **f = 0,38** (0,40 no caminho O; 0,37 por eixo). O MDE por 1 dp de Q fica:
 
 | Hipótese | Evasão (p.p.) | Conclusão (p.p.) |
 |---|---|---|
 | H1a | 1,3 | 1,6 |
-| H2 (diferença de inclinação EaD) | 7,4 | 6,8 |
+| H2 (diferença de inclinação EaD) | 7,5 | 6,9 |
 
 ## 9. Robustez (spec 03)
 | ID | Variante |
@@ -63,6 +63,7 @@ Simulação por injeção de efeito com a estrutura real (relatório de viabilid
 | R-zero | Ciclos com L = 0 incluídos com ln(QL + ε) + dummy (ADR-0005) |
 | R-2019 | Sem os ciclos de DF e SE que usam a RAIS 2019 (P16) |
 | R-conf | Só subclasses com consenso entre os dois LLMs |
+| R-T1 | w_T da primeira passada (um ou poucos cursos por subclasse) em vez do multicurso |
 
 Placebos (spec 04):
 - território sorteado em outra UF (1.000 sorteios);
