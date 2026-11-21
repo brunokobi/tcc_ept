@@ -29,4 +29,5 @@
 | [pre-registro/plano-osf.md](pre-registro/plano-osf.md) | Rascunho do pré-registro |
 | [pre-registro/desvios.md](pre-registro/desvios.md) | Registro de desvios do plano |
 | [revisao/protocolo-revisao.md](revisao/protocolo-revisao.md) | Protocolo da revisão sistemática |
+| [revisao/sintese.md](revisao/sintese.md) | Busca (OpenAlex), triagem PRISMA e síntese preliminar da revisão |
 | [revisao/referencias.md](revisao/referencias.md) | Referências iniciais (ABNT, a conferir) |

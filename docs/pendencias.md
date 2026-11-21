@@ -10,7 +10,7 @@
 | P6 | Fonte de eventos (estudo de evento) | Extensão | spec 04 | rebaixado a extensão; CNPJ |
 | P7 | Template do artigo IFSul | `paper/` | orientador | aberto |
 | P8 | Escopo do produto técnico | Prazo | orientador | **proposto:** extensão pós-G4 |
-| P9 | Revisão sistemática | Lacuna declarada | protocolo | aberto |
+| P9 | Revisão sistemática | Lacuna declarada | protocolo | **parcial:** busca na OpenAlex (4 strings, 471 registros) e triagem por LLM → 43 incluídos (`docs/revisao/sintese.md`); falta complemento manual (CAPES, BDTD, EduCAPES, Scholar), bola de neve, revisão humana da triagem e leitura do texto completo |
 | P10 | Volume de ofertas EaD e ciclos por oferta | Poder para H2 e FE | prospecção PNP | **parcial:** 111 ofertas/270 ciclos EaD por safra; 56% em Gestão. **MDE calculado** (relatório de viabilidade, §9): H1a ≈ 0,8 p.p. e H2 ≈ 4,3–5,3 p.p. de evasão por 1 dp de Q. H2 fica com poder limitado e o EP agrupado é anticonservador (tamanho de 8–15%) |
 | P11 | Campi com ≥ 2 cursos / cursos em ≥ 2 campi | FE cruzados de H1a | prospecção PNP | **resolvido:** 563/624 campi; 107/140 cursos (99% das matrículas) |
 | P12 | Avaliador humano para a amostra de referência | Validade do gabarito | orientador | aberto: ADR-0004 (proposta) — referência anotada por LLM; falta revisão humana de uma subamostra do teste (~60–100) para medir concordância humano × LLM |

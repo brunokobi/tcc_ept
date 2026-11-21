@@ -1,4 +1,5 @@
 import pandas as pd
+import pytest
 
 from tcc_aderencia.classifier import llm
 
@@ -36,3 +37,32 @@ def test_combine_rule():
     assert out.loc["1", "eixo_pred"] == "X" and out.loc["1", "consenso"]
     assert out.loc["2", "eixo_pred"] == "X" and not out.loc["2", "consenso"]  # primary wins
     assert out.loc["3", "eixo_pred"] == "Z" and out.loc["3", "n_modelos"] == 1  # fallback
+
+
+def test_course_weights_validates_and_renormalizes(monkeypatch):
+    cnct = pd.DataFrame(
+        {
+            "curso": ["Técnico em Agricultura", "Técnico em Agropecuária", "Técnico em Meio Ambiente"],
+            "eixo": ["Recursos Naturais", "Recursos Naturais", "Ambiente e Saúde"],
+        }
+    )
+    reply = [
+        {
+            "cnae_subclasse": "0111-3/02",
+            "cursos": [
+                {"curso": "Agricultura", "peso": 0.6},
+                {"curso": "meio ambiente", "peso": 0.2},
+                {"curso": "Curso Inventado", "peso": 0.2},
+            ],
+        }
+    ]
+    monkeypatch.setattr(llm, "_cached", lambda *a, **k: reply)
+    cnae = pd.DataFrame({"cnae_subclasse": ["0111302", "9999999"], "descricao": ["a", "b"]})
+    final = pd.DataFrame(
+        {"cnae_subclasse": ["0111302", "9999999"], "eixo_pred": ["Recursos Naturais", llm.NAO_SE_APLICA]}
+    )
+    out = llm.course_weights(cnae, final, "m", cnct).set_index("curso")
+    assert set(out.index) == {"Técnico em Agricultura", "Técnico em Meio Ambiente"}
+    assert out.w_T.sum() == pytest.approx(1.0)
+    assert out.loc["Técnico em Agricultura", "w_T"] == pytest.approx(0.75)
+    assert out.loc["Técnico em Meio Ambiente", "eixo"] == "Ambiente e Saúde"

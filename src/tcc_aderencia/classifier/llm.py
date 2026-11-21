@@ -162,3 +162,79 @@ def combine(preds: dict[str, pd.DataFrame], primary: str = PRIMARY) -> pd.DataFr
             "n_modelos": vals.notna().sum(axis=1),
         }
     )
+
+
+# --- Second pass: multi-course weights (ADR-0005, P20) ----------------------------------------
+
+SYSTEM_COURSES = """Você distribui os empregos de nível técnico de atividades econômicas (subclasses da \
+CNAE 2.3) entre os cursos do Catálogo Nacional de Cursos Técnicos (CNCT, 4ª ed.). Para cada subclasse, \
+liste TODOS os cursos técnicos, de qualquer eixo, cujos egressos trabalham nas atividades dela \
+(produção, manutenção, controle, gestão, segurança, meio ambiente etc.), com um peso entre 0 e 1 \
+proporcional à parcela dos empregos técnicos da subclasse ligada a cada curso; os pesos somam 1. \
+Use de 1 a 6 cursos; omita cursos com peso < 0,05. O eixo principal já definido para a subclasse vem \
+indicado e deve estar representado. Use os nomes dos cursos exatamente como na lista, sem "Técnico em". \
+Responda APENAS com um array JSON: [{"cnae_subclasse": "...", "cursos": [{"curso": "...", \
+"peso": 0.0}]}]."""
+
+
+def course_weights(
+    cnae: pd.DataFrame,
+    final: pd.DataFrame,
+    model: str,
+    cnct: pd.DataFrame,
+    batch_size: int = 10,
+) -> pd.DataFrame:
+    """w_T(s, c) from the LLM listing every related course with weights.
+
+    cnae: cnae_subclasse, descricao, compreende. final: cnae_subclasse, eixo_pred (the axis
+    evaluated in G2; "não se aplica" subclasses are skipped). Returns cnae_subclasse, curso
+    (CNCT name), eixo, w_T (renormalized to 1 over valid courses), modelo.
+    """
+    from tcc_aderencia.ingest.pnp import norm_course
+
+    civil = cnct[cnct.eixo != "Militar"]
+    lookup = {norm_course(c): c for c in civil.curso}
+    axis_of = dict(zip(civil.curso, civil.eixo, strict=True))
+    axes = axes_block(cnct)
+    x = cnae.merge(final[["cnae_subclasse", "eixo_pred"]], on="cnae_subclasse")
+    x = x[x.eixo_pred.notna() & (x.eixo_pred != NAO_SE_APLICA)]
+    rows = x.to_dict("records")
+    out = []
+    for i in range(0, len(rows), batch_size):
+        b = rows[i : i + batch_size]
+        user = axes + "\n\nSubclasses:\n\n" + "\n\n".join(
+            f"cnae_subclasse: {r['cnae_subclasse']}\ndescrição: {r['descricao']}\n"
+            f"compreende: {str(r.get('compreende', ''))[:600]}\neixo principal: {r['eixo_pred']}"
+            for r in b
+        )
+        messages = [{"role": "system", "content": SYSTEM_COURSES}, {"role": "user", "content": user}]
+        for item in _cached(model, messages):
+            if not isinstance(item, dict):
+                continue
+            s = re.sub(r"\D", "", str(item.get("cnae_subclasse", "")))
+            for c in item.get("cursos") or []:
+                if not isinstance(c, dict):
+                    continue
+                name = lookup.get(norm_course(c.get("curso", "")))
+                try:
+                    peso = float(c.get("peso", 0))
+                except (TypeError, ValueError):
+                    peso = 0.0
+                if name and peso > 0:
+                    out.append((s, name, axis_of[name], peso))
+    df = pd.DataFrame(out, columns=["cnae_subclasse", "curso", "eixo", "w_T"])
+    df = df.groupby(["cnae_subclasse", "curso", "eixo"], as_index=False).w_T.sum()
+    df["w_T"] = df.w_T / df.groupby("cnae_subclasse").w_T.transform("sum")
+    return df.assign(modelo=model)
+
+
+def _cached(model: str, messages: list[dict]) -> list:
+    key = hashlib.sha256(json.dumps([model, messages], ensure_ascii=False).encode()).hexdigest()
+    path = CACHE / f"{key[:20]}.json"
+    if path.exists():
+        text = json.loads(path.read_text())["text"]
+    else:
+        text = _call(model, messages)
+        CACHE.mkdir(parents=True, exist_ok=True)
+        path.write_text(json.dumps({"model": model, "text": text}, ensure_ascii=False))
+    return _parse(text)
