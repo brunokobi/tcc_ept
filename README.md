@@ -211,7 +211,9 @@ Alfa de Krippendorff entre os dois LLMs: 0,89. Segunda passada multicurso: 4,7 c
 ├── annotation/                  # protocolo de anotação
 ├── notebooks/                   # exploração (não é fonte de verdade)
 ├── paper/                       # artigo(s)
-├── reports/                     # tabelas e figuras geradas
+├── reports/
+│   ├── figures/                 # figuras do artigo (make_figures.py)
+│   └── pagina/                  # página de resultados (tccept.brunokobi.tech)
 ├── scripts/                     # pontos de entrada do pipeline
 └── tests/
 ```
@@ -260,9 +262,11 @@ As etapas anteriores ao `evaluate_test.py` (PNP, caminho O, linhas de base e LLM
 | [Spec 04](docs/spec/04-modelagem-identificacao.md) | Modelos e estratégia de identificação |
 | [Spec 05](docs/spec/05-produto-tecnico.md) | Painel, servidor MCP e chat (extensão) |
 | [Spec 06](docs/spec/06-ciencia-aberta-etica.md) | Ciência aberta, ética e limitações |
-| [ADRs](docs/adr/) | Edição do CNCT, unidade territorial, stack, referência por LLM (0004), definição de Q, S e B (0005) |
+| [ADRs](docs/adr/) | Edição do CNCT, unidade territorial, stack, referência por LLM (0004), definição de Q, S e B (0005), página pública antes do G4 (0006) |
 | [Pré-registro](docs/pre-registro/plano-osf.md) | Rascunho v2 para o OSF: hipóteses, modelos, inferência, MDE, robustez |
+| [Site de resultados](https://tccept.brunokobi.tech) | Página pública e descritiva: classificador, mapa do Q, convergência, poder, revisão ([ADR-0006](docs/adr/0006-pagina-descritiva-antes-do-g4.md)) |
 | [Resultados](docs/resultados/) | Avaliação do classificador e índices (JSON) |
+| [Figuras](reports/figures/) | Figuras descritivas para o artigo (PNG/SVG) |
 | [Revisão sistemática](docs/revisao/sintese.md) | Busca, triagem PRISMA e síntese preliminar |
 | [Pendências](docs/pendencias.md) | Pontos a verificar (P1–P21) |
 | [Cronograma](docs/cronograma.md) | Etapas, marcos e situação atual |
@@ -307,6 +311,7 @@ Meses relativos ao início do TCC. **Núcleo** antes de **extensões**.
 - [x] Classificador T avaliado no teste (G2) e caminho O
 - [x] Índices Q, S e B por ciclo
 - [x] Simulação de poder com o Q real
+- [x] Figuras descritivas e site de resultados ([tccept.brunokobi.tech](https://tccept.brunokobi.tech))
 - [ ] Revisão sistemática: v1 feita (OpenAlex); faltam bases manuais, bola de neve e leitura completa
 - [ ] Validação humana de uma subamostra da referência (P12)
 - [ ] Conferir a correspondência CNAE com as tabelas do IBGE (P21)

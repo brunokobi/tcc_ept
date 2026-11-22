@@ -29,4 +29,6 @@ Meses relativos ao início do TCC (M1); ajustar ao calendário oficial. **Núcle
 | 4 | feita (G2) |
 | 5 | MDE pronto; pré-registro em rascunho |
 | 6 | índices prontos (`docs/resultados/indices.json`); modelos bloqueados até o OSF |
-| 7–9 | não iniciadas |
+| 7 | figuras descritivas prontas (`reports/figures/`); redação não iniciada |
+| 8 | antecipada só a página descritiva em https://tccept.brunokobi.tech (ADR-0006); painel com desfechos, MCP e chat seguem pós-G4 |
+| 9 | — |

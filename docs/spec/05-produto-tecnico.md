@@ -1,6 +1,8 @@
 # Spec 05 — Produto técnico: painel, MCP e chat (EXTENSÃO)
 
 > Começa após G4 (resultados principais fechados).
+>
+> **Antecipado (ADR-0006, 2026-11-22):** página estática só descritiva em https://tccept.brunokobi.tech (`reports/pagina/`, `scripts/make_figures.py`, `scripts/deploy_pagina.sh`), sem desfechos. O painel abaixo, com evasão e conclusão, continua pós-G4.
 
 ## Painel web (`dashboard/`)
 - Mapa coroplético de aderência por território (região imediata).
