@@ -1,0 +1,208 @@
+- generic [ref=e2]:
+  - banner [ref=e3]:
+    - generic [ref=e4]: TCC Â· EspecializaÃ§Ã£o EaD na EPT Â· IFSul
+    - heading "AderÃªncia territorial e evasÃ£o na Rede Federal" [level=1] [ref=e5]
+    - paragraph [ref=e6]: "Estado do projeto antes do prÃ©-registro: dados, classificador CNAE â†’ curso, Ãndices de aderÃªncia, poder estatÃstico e revisÃ£o sistemÃ¡tica. Bruno Kobi, novembro de 2026."
+    - generic [ref=e7]:
+      - generic [ref=e8]: G1 painel de ciclos âœ“
+      - generic [ref=e9]: G2 classificador âœ“
+      - generic [ref=e10]: G3 prÃ©-registro OSF Â· pendente
+      - generic [ref=e11]: G4 resultados Â· bloqueado
+  - generic [ref=e12]: Nenhum efeito foi estimado. Tudo nesta pÃ¡gina Ã© descritivo. Nenhum grÃ¡fico relaciona evasÃ£o ou conclusÃ£o aos Ãndices Q, S ou B; essa relaÃ§Ã£o sÃ³ serÃ¡ olhada depois do registro no OSF.
+  - generic [ref=e13]:
+    - generic [ref=e14]:
+      - generic [ref=e15]: "22.316"
+      - generic [ref=e16]: ciclos tÃ©cnicos 2011â€“2022, 1.855 EaD
+    - generic [ref=e17]:
+      - generic [ref=e18]: 0,83
+      - generic [ref=e19]: macro-F1 do mapa CNAE â†’ curso (linha de base 0,46)
+    - generic [ref=e20]:
+      - generic [ref=e21]: 98,3%
+      - generic [ref=e22]: ciclos com Q definido (95,8% dos EaD)
+    - generic [ref=e23]:
+      - generic [ref=e24]: 0,65
+      - generic [ref=e25]: convergÃªncia T Ã— O no Q (Spearman)
+    - generic [ref=e26]:
+      - generic [ref=e27]: 1,3 p.p.
+      - generic [ref=e28]: efeito mÃnimo detectÃ¡vel de H1a na evasÃ£o
+  - generic [ref=e29]:
+    - generic [ref=e30]:
+      - generic [ref=e31]: 1 Â· Mapeamento CNAE â†’ curso
+      - heading "O LLM classifica as atividades econÃ´micas bem acima das linhas de base" [level=2] [ref=e32]
+      - paragraph [ref=e33]: AvaliaÃ§Ã£o Ãºnica no split de teste (201 subclasses CNAE), contra a referÃªncia anotada por LLM (ADR-0004). O intervalo do T final nÃ£o se sobrepÃµe ao da linha de base, que Ã© o critÃ©rio do marco G2.
+    - figure [ref=e34]:
+      - img "Macro-F1 por mÃ©todo com intervalo de confianÃ§a" [ref=e35]:
+        - generic [ref=e36]: 0,3
+        - generic [ref=e37]: 0,4
+        - generic [ref=e38]: 0,5
+        - generic [ref=e39]: 0,6
+        - generic [ref=e40]: 0,7
+        - generic [ref=e41]: 0,8
+        - generic [ref=e42]: 0,9
+        - generic [ref=e43]: 1,0
+        - generic [ref=e44]: Macro-F1 no teste, IC 95% por bootstrap
+        - generic [ref=e45]: T final (ERNIE)
+        - generic [ref=e47]: 0,83
+        - generic [ref=e49]: Nemotron (2º LLM)
+        - generic [ref=e51]: 0,76
+        - generic [ref=e53]: Caminho O (CBO)
+        - generic [ref=e55]: 0,45
+        - generic [ref=e57]: Embeddings
+        - generic [ref=e59]: 0,47
+        - generic [ref=e61]: TF-IDF (linha de base)
+        - generic [ref=e63]: 0,46
+      - group [ref=e65]:
+        - generic "F1 por eixo tecnolÃ³gico" [ref=e66] [cursor=pointer]
+      - generic [ref=e67]: "Alfa de Krippendorff entre os dois LLMs: 0,89. Quando concordam (182 de 201), a acurÃ¡cia Ã© 0,91; quando divergem, 0,68. ReferÃªncia anotada por LLM, nÃ£o por humanos."
+  - generic [ref=e68]:
+    - generic [ref=e69]:
+      - generic [ref=e70]: "2 Â· Ã\x8dndice de aderÃªncia estrutural Q"
+      - heading "Onde cada curso tem mais emprego ligado do que a mÃ©dia do paÃs" [level=2] [ref=e71]
+      - paragraph [ref=e72]: "Q = ln QL: participaÃ§Ã£o do emprego ligado ao curso na regiÃ£o imediata dividida pela participaÃ§Ã£o nacional. Zero Ã© a mÃ©dia do Brasil; azul Ã© acima, vermelho abaixo. Cursos de setores concentrados em metrÃ³poles, como InformÃ¡tica, ficam abaixo da mÃ©dia na maior parte do territÃ³rio."
+    - figure [ref=e73]:
+      - generic [ref=e74]:
+        - group "Curso" [ref=e75]:
+          - button "Técnico em Agropecuária" [pressed] [ref=e76] [cursor=pointer]
+          - button "Técnico em Informática" [ref=e77] [cursor=pointer]
+          - button "Técnico em Enfermagem" [ref=e78] [cursor=pointer]
+          - button "Técnico em Mineração" [ref=e79] [cursor=pointer]
+          - button "Técnico em Petróleo e Gás" [ref=e80] [cursor=pointer]
+          - button "Técnico em Logística" [ref=e81] [cursor=pointer]
+        - generic [ref=e82] [cursor=pointer]:
+          - checkbox "marcar regiÃµes com oferta do curso" [checked] [ref=e83]
+          - text: marcar regiÃµes com oferta do curso
+      - img "Mapa do Q por regiÃ£o imediata" [ref=e85]
+      - generic [ref=e598]:
+        - generic [ref=e599]: abaixo de âˆ’1
+        - generic [ref=e602]: âˆ’1 a âˆ’0,5
+        - generic [ref=e605]: âˆ’0,5 a âˆ’0,15
+        - generic [ref=e608]: â‰ˆ 0 (mÃ©dia)
+        - generic [ref=e611]: 0,15 a 0,5
+        - generic [ref=e614]: 0,5 a 1
+        - generic [ref=e617]: acima de 1
+        - generic [ref=e620]: sem emprego ligado
+      - generic [ref=e623]: "Técnico em Agropecuária, emprego RAIS de 2021. 318 de 510 regiÃµes imediatas acima da mÃ©dia nacional; 2 sem emprego ligado. Pontos: regiÃµes com ciclos do curso na PNP (152)."
+  - generic [ref=e624]:
+    - generic [ref=e625]:
+      - generic [ref=e626]: 3 Â· ValidaÃ§Ã£o por um caminho independente
+      - heading "O Q pelo texto concorda com o Q pelas ocupaÃ§Ãµes" [level=2] [ref=e627]
+      - paragraph [ref=e628]: O caminho O usa sÃ³ as ocupaÃ§Ãµes CBO que o CNCT associa a cada curso, sem texto nem LLM. A correlaÃ§Ã£o de postos entre os dois Q nos ciclos Ã© a medida de convergÃªncia prÃ©-definida.
+    - generic [ref=e629]:
+      - figure [ref=e630]:
+        - img "DispersÃ£o do Q pelo caminho T contra o caminho O" [ref=e631]:
+          - generic [ref=e632]: "-4"
+          - generic [ref=e633]: "-2"
+          - generic [ref=e634]: "0"
+          - generic [ref=e635]: "2"
+          - generic [ref=e636]: "4"
+          - generic [ref=e637]: "-3"
+          - generic [ref=e638]: "-2"
+          - generic [ref=e639]: "-1"
+          - generic [ref=e640]: "0"
+          - generic [ref=e641]: "1"
+          - generic [ref=e642]: "2"
+          - generic [ref=e643]: "3"
+          - generic [ref=e644]: Q pelo caminho T (texto, LLM)
+          - generic [ref=e645]: Q pelo caminho O (ocupaÃ§Ãµes)
+        - generic [ref=e3147]:
+          - generic [ref=e3148]: Presencial
+          - generic [ref=e3150]: EaD
+          - generic [ref=e3152]: amostra de 2.500 ciclos
+      - figure [ref=e3153]:
+        - 'heading "Sentinela: AgropecuÃ¡ria" [level=3] [ref=e3154]'
+        - paragraph [ref=e3155]: Se o Ãndice mede o que diz, o Q de AgropecuÃ¡ria deve subir com o peso da agropecuÃ¡ria no emprego do territÃ³rio.
+        - img "Q mÃ©dio de AgropecuÃ¡ria por tercil do emprego agropecuÃ¡rio" [ref=e3156]:
+          - generic [ref=e3157]: "-1,5"
+          - generic [ref=e3158]: "-1,0"
+          - generic [ref=e3159]: "-0,5"
+          - generic [ref=e3160]: 0,0
+          - generic [ref=e3161]: 0,5
+          - generic [ref=e3162]: 1,0
+          - generic [ref=e3163]: 1,5
+          - generic [ref=e3165]: "-1,19"
+          - generic [ref=e3166]: Tercil baixo
+          - generic [ref=e3168]: +0,46
+          - generic [ref=e3169]: Tercil mÃ©dio
+          - generic [ref=e3171]: +1,32
+          - generic [ref=e3172]: Tercil alto
+        - generic [ref=e3173]: Q mÃ©dio por tercil de emprego agropecuÃ¡rio (RAIS).
+    - generic [ref=e3174]: "Spearman entre Q_T e Q_O: 0,65 em 19.492 ciclos; para S, 0,53; mediana por curso, 0,59. O caminho O entra no prÃ©-registro como robustez (R2)."
+  - generic [ref=e3175]:
+    - generic [ref=e3176]:
+      - generic [ref=e3177]: 4 Â· Os trÃªs Ãndices por ciclo
+      - heading "Q, S e B cobrem 98% dos ciclos, 96% dos EaD" [level=2] [ref=e3178]
+      - paragraph [ref=e3179]: Q Ã© a aderÃªncia estrutural no ano anterior ao inÃcio (H1a, H2). S Ã© o crescimento do emprego ligado ao curso durante o ciclo (H1b), e B Ã© o instrumento Bartik que prevÃª S pelo crescimento nacional de cada setor.
+    - figure [ref=e3180]:
+      - 'group "Ãndice" [ref=e3182]':
+        - button "Q Â· aderÃªncia estrutural" [pressed] [ref=e3183] [cursor=pointer]
+        - button "S Â· choque de demanda" [ref=e3184] [cursor=pointer]
+        - button "B Â· instrumento Bartik" [ref=e3185] [cursor=pointer]
+      - img "DistribuiÃ§Ã£o do Ãndice por modalidade" [ref=e3186]:
+        - generic [ref=e3187]: "-4"
+        - generic [ref=e3188]: "-2"
+        - generic [ref=e3189]: "0"
+        - generic [ref=e3190]: "2"
+        - generic [ref=e3191]: "4"
+      - generic [ref=e3195]:
+        - generic [ref=e3196]: Presencial Â· 20.165 ciclos Â· mediana -0,16
+        - generic [ref=e3198]: EaD Â· 1.777 ciclos Â· mediana -0,14
+      - generic [ref=e3200]: "Valores fora da janela somados nas pontas. Q indefinido em 364 ciclos sem nenhum emprego ligado no territÃ³rio (entram sÃ³ na sensibilidade). CorrelaÃ§Ã£o S Ã— B: 0,42."
+  - generic [ref=e3201]:
+    - generic [ref=e3202]:
+      - generic [ref=e3203]: 5 Â· Poder estatÃstico
+      - heading "H1a detecta efeitos pequenos; H2 sÃ³ efeitos grandes" [level=2] [ref=e3204]
+      - paragraph [ref=e3205]: Efeito mÃnimo detectÃ¡vel a 80% de poder, por 1 desvio-padrÃ£o de Q, simulado com a estrutura real dos dados e efeitos fixos de campus Ã— ano e curso Ã— ano. Por isso H2 (diferenÃ§a EaD Ã— presencial) estÃ¡ registrada como secundÃ¡ria.
+    - figure [ref=e3206]:
+      - table [ref=e3208]:
+        - rowgroup [ref=e3209]:
+          - row [ref=e3210]:
+            - columnheader "HipÃ³tese" [ref=e3211]
+            - columnheader "EvasÃ£o (p.p.)" [ref=e3212]
+            - columnheader "ConclusÃ£o (p.p.)" [ref=e3213]
+        - rowgroup [ref=e3214]:
+          - row [ref=e3215]:
+            - cell "H1a Â· efeito de Q (pertencimento)" [ref=e3216]
+            - cell "1,3" [ref=e3217]
+            - cell "1,6" [ref=e3218]
+          - row [ref=e3219]:
+            - cell "H2 Â· diferenÃ§a do efeito de Q na EaD" [ref=e3220]
+            - cell "7,5" [ref=e3221]
+            - cell "6,9" [ref=e3222]
+      - generic [ref=e3223]: "FraÃ§Ã£o da variÃ¢ncia de Q que sobra apÃ³s os efeitos fixos: f = 0,38. SimulaÃ§Ã£o com Q sorteado e o desfecho real; nenhuma relaÃ§Ã£o real entre desfecho e Q foi observada."
+  - generic [ref=e3224]:
+    - generic [ref=e3225]:
+      - generic [ref=e3226]: 6 Â· RevisÃ£o sistemÃ¡tica (versÃ£o 1)
+      - heading "Nenhum estudo nacional liga aderÃªncia curso Ã— territÃ³rio Ã evasÃ£o" [level=2] [ref=e3227]
+      - paragraph [ref=e3228]: Os estudos brasileiros que relacionam evasÃ£o ao territÃ³rio sÃ£o qualitativos ou de um campus. A evidÃªncia internacional sobre choques de demanda e escolarizaÃ§Ã£o sustenta H1b e o uso de Bartik.
+    - figure [ref=e3229]:
+      - generic [ref=e3230]:
+        - generic [ref=e3231]: Identificados (4 strings)n = 478
+        - generic [ref=e3233]:
+          - generic [ref=e3234]: ApÃ³s remover duplicatasn = 471
+          - generic [ref=e3235]: ExcluÃdos pelo tÃtulon = 405
+        - generic [ref=e3236]:
+          - generic [ref=e3237]: Resumos avaliadosn = 66
+          - generic [ref=e3238]: ExcluÃdos pelo resumon = 23
+        - generic [ref=e3239]: IncluÃdos Â· A 10 Â· B 7 Â· C 12 Â· D 14n = 43
+      - generic [ref=e3241]: "Busca reproduzÃvel na OpenAlex (4 strings, tÃtulo + resumo, 2008+). Triagem por LLM, a revisar. Categorias: A territÃ³rio Ã— EPT, B evasÃ£o na Rede Federal, C EaD tÃ©cnica, D choques de demanda."
+  - generic [ref=e3242]:
+    - generic [ref=e3243]:
+      - generic [ref=e3244]: 7 Â· Para decidir com o orientador
+      - heading "O que falta para registrar no OSF" [level=2] [ref=e3245]
+    - list [ref=e3246]:
+      - listitem [ref=e3247]:
+        - generic [ref=e3248]: "ADR-0004: a amostra de referÃªncia foi anotada por LLM, sem segundo avaliador humano. Aceitar, e definir se uma subamostra de 60â€“100 subclasses terÃ¡ revisÃ£o humana."
+      - listitem [ref=e3249]:
+        - generic [ref=e3250]: "ADR-0005: definiÃ§Ãµes operacionais de Q, S e B (Bartik sobre o emprego ligado ao curso; ciclos com L = 0 sÃ³ na sensibilidade)."
+      - listitem [ref=e3251]:
+        - generic [ref=e3252]: EdiÃ§Ã£o do CNCT (4Âª ou 5Âª) para o mapa principal.
+      - listitem [ref=e3253]:
+        - generic [ref=e3254]: "Plano do prÃ©-registro: hipÃ³teses, modelos, inferÃªncia (Holm; bootstrap selvagem e randomizaÃ§Ã£o para H2) e robustez."
+      - listitem [ref=e3255]:
+        - generic [ref=e3256]: "RevisÃ£o: bases com acesso institucional (CAPES, BDTD) e conferÃªncia humana da triagem."
+  - contentinfo [ref=e3257]:
+    - generic [ref=e3258]: "Fontes: PNP (eficiÃªncia acadÃªmica, ediÃ§Ãµes 2018â€“2023), RAIS 2012â€“2025, CNCT 4Âª ed., CNAE 2.3, malha de regiÃµes imediatas do IBGE. Apenas dados pÃºblicos e agregados."
+    - generic [ref=e3259]:
+      - text: "CÃ³digo e dados derivados: github.com/brunokobi/tcc_ept Â· figuras geradas por"
+      - code [ref=e3260]: scripts/make_figures.py
+      - text: .

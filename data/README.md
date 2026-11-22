@@ -5,6 +5,7 @@
 | `pnp/` | Microdados de **eficiência acadêmica** da Plataforma Nilo Peçanha, edições 2018–2023 (safras de ciclos encerrados em 2017–2022), convertidos de CSV para Parquet (zstd), todas as colunas como texto | ✅ | Baixar os CSVs em https://dadosabertos.mec.gov.br/pnp e converter (ver abaixo) |
 | `external/cnct4_cursos.csv` | CNCT 4ª ed. (alterada em 29/11/2024), uma linha por curso: eixo, perfil, campo de atuação, CBO, permissão de EaD | ✅ | `tcc_aderencia.ingest.cnct.load_cnct(pdf)` |
 | `external/cnae_subclasses.csv` | CNAE 2.3, 1.332 subclasses com atividades e notas | ✅ | `tcc_aderencia.ingest.cnct.load_cnae_subclasses()` |
+| `external/ibge_rgi_malha.geojson` | Malha das 510 regiões imediatas (IBGE, qualidade mínima), usada nos mapas | ✅ | baixada por `scripts/make_figures.py` |
 | `external/ibge_municipios_rgi.csv` | Municípios × regiões imediatas e intermediárias (IBGE 2017) | ✅ | API de localidades do IBGE |
 | `reference/gold_v1.csv` | Amostra de referência CNAE → eixo: 300 subclasses sorteadas, com split dev/teste (99/201) e probabilidade de inclusão; anotada por LLM (referência LLM, coluna `anotador`, ADR-0004) | ✅ | `scripts/sample_reference.py` + anotação (`annotation/PROTOCOLO.md`, ADR-0004) |
 | `reference/pnp_cnct_overrides.csv` | Exceções do casamento de cursos PNP → CNCT (7 nomes) | ✅ | Manual |

@@ -235,6 +235,7 @@ python scripts/verify_data.py saida.json               # viabilidade (descritivo
 python scripts/evaluate_test.py                        # avaliação única do classificador T (G2)
 python scripts/run_course_weights.py                   # 2ª passada do LLM: pesos multicurso
 python scripts/build_indices.py                        # Q, S, B e variantes por ciclo
+python scripts/make_figures.py                         # figuras descritivas + dados da página
 python scripts/search_literature.py                    # busca da revisão sistemática
 ```
 

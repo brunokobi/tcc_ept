@@ -1,0 +1,477 @@
+<title>Aderência territorial na EPT</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one reading column (~880px) of numbered findings; each finding = claim, chart, source line. */
+:root {
+  --bg: #fbfcfd; --surface: #ffffff; --ink: #0f1720; --ink-2: #4a5562; --ink-3: #7d8794;
+  --line: #e3e7ec; --accent: #1c5cab; --accent-soft: #e8f0fb;
+  --s1: #2a78d6; --s2: #eb6834;
+  --d0: #c23b3a; --d1: #e37b7a; --d2: #f2b9b8; --d3: #eceae5; --d4: #b7d3f6; --d5: #5598e7; --d6: #1c5cab;
+  --nodata: #9a9993; --good: #0c7a0c; --warn: #9a6400;
+  --f-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --f-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-data: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #111418; --surface: #181c21; --ink: #eef1f4; --ink-2: #b4bcc6; --ink-3: #87909b;
+  --line: #2a3038; --accent: #6da7ec; --accent-soft: #1b2a3d;
+  --s1: #3987e5; --s2: #d95926;
+  --d0: #d24a49; --d1: #a8504f; --d2: #6e3c3c; --d3: #383835; --d4: #2c4a70; --d5: #3d78c4; --d6: #79b0f0;
+  --nodata: #5e5d59; --good: #3fbf3f; --warn: #e0a43a; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #111418; --surface: #181c21; --ink: #eef1f4; --ink-2: #b4bcc6; --ink-3: #87909b;
+  --line: #2a3038; --accent: #6da7ec; --accent-soft: #1b2a3d;
+  --s1: #3987e5; --s2: #d95926;
+  --d0: #d24a49; --d1: #a8504f; --d2: #6e3c3c; --d3: #383835; --d4: #2c4a70; --d5: #3d78c4; --d6: #79b0f0;
+  --nodata: #5e5d59; --good: #3fbf3f; --warn: #e0a43a; color-scheme: dark }
+
+* { box-sizing: border-box }
+body { background: var(--bg); color: var(--ink); font: 15px/1.6 var(--f-body); }
+.wrap { max-width: 920px; margin: 0 auto; padding-block: 40px 72px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  display: grid; gap: 56px; }
+h1, h2, h3 { font-family: var(--f-display); text-wrap: balance; margin: 0; line-height: 1.15 }
+h1 { font-size: clamp(30px, 5vw, 44px); font-weight: 700; letter-spacing: -0.01em }
+h2 { font-size: 24px; font-weight: 700 }
+h3 { font-size: 16px; font-weight: 600; font-family: var(--f-body) }
+p { margin: 0; max-width: 68ch }
+.eyebrow { font: 500 12px/1 var(--f-data); letter-spacing: .08em; text-transform: uppercase; color: var(--accent) }
+.muted { color: var(--ink-2) }
+.small { font-size: 13px }
+.src { font: 12px/1.5 var(--f-data); color: var(--ink-3) }
+header { display: grid; gap: 14px }
+.status { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px }
+.pill { font: 500 12px/1 var(--f-data); padding: 7px 10px; border-radius: 999px; border: 1px solid var(--line); color: var(--ink-2); background: var(--surface) }
+.pill.ok { color: var(--good); border-color: color-mix(in srgb, var(--good) 40%, var(--line)) }
+.pill.wait { color: var(--warn); border-color: color-mix(in srgb, var(--warn) 40%, var(--line)) }
+.lock { border: 1px solid var(--line); border-left: 3px solid var(--warn); background: var(--surface); padding: 12px 16px; border-radius: 6px; font-size: 14px; color: var(--ink-2) }
+
+.tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 8px; overflow: hidden }
+.tile { background: var(--surface); padding: 16px; display: grid; gap: 4px; align-content: start }
+.tile b { font: 600 26px/1.1 var(--f-display); font-variant-numeric: tabular-nums }
+.tile span { font-size: 13px; color: var(--ink-2) }
+
+section { display: grid; gap: 16px }
+.sec-head { display: grid; gap: 8px }
+.sec-head .num { font: 500 12px/1 var(--f-data); color: var(--ink-3) }
+figure { margin: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 16px; display: grid; gap: 12px; min-width: 0 }
+svg { display: block; width: 100%; height: auto; overflow: visible }
+svg text { fill: var(--ink-2); font: 12px var(--f-body) }
+svg .tick { fill: var(--ink-3); font: 11px var(--f-data) }
+svg .grid { stroke: var(--line); stroke-width: 1 }
+svg .axis { stroke: var(--ink-3); stroke-width: 1 }
+.controls { display: flex; flex-wrap: wrap; gap: 8px; align-items: center }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 6px; overflow: hidden; flex-wrap: wrap }
+.seg button { font: 500 13px var(--f-body); background: var(--surface); color: var(--ink-2); border: 0; padding: 7px 12px; cursor: pointer; border-right: 1px solid var(--line) }
+.seg button:last-child { border-right: 0 }
+.seg button[aria-pressed="true"] { background: var(--accent-soft); color: var(--accent) }
+button:focus-visible, label:focus-within { outline: 2px solid var(--accent); outline-offset: 2px }
+.check { display: inline-flex; gap: 6px; align-items: center; font-size: 13px; color: var(--ink-2); cursor: pointer }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 12px; color: var(--ink-2); align-items: center }
+.sw { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 6px; vertical-align: -1px }
+.ramp { display: flex; align-items: stretch; gap: 2px; flex-wrap: wrap }
+.ramp div { display: grid; gap: 4px; min-width: 52px; flex: 1 }
+.ramp i { height: 10px; border-radius: 2px; display: block }
+.ramp small { font: 11px var(--f-data); color: var(--ink-3) }
+.two { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px }
+.two > * { min-width: 0 }
+.tbl { overflow-x: auto }
+table { border-collapse: collapse; width: 100%; font-size: 13px; font-variant-numeric: tabular-nums }
+th, td { text-align: left; padding: 7px 10px; border-bottom: 1px solid var(--line) }
+th { font-weight: 600; color: var(--ink-2); font-size: 12px }
+td.n, th.n { text-align: right; font-family: var(--f-data) }
+details summary { cursor: pointer; font-size: 13px; color: var(--accent) }
+.prisma { display: grid; gap: 10px }
+.prow { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 12px; align-items: center }
+.pbox { border: 1px solid var(--accent); background: var(--accent-soft); border-radius: 6px; padding: 10px 12px; font-size: 13px }
+.pbox.ex { border-color: var(--line); background: var(--surface); color: var(--ink-2) }
+.pbox b { font-family: var(--f-data); font-weight: 500 }
+.todo { display: grid; gap: 10px; padding: 0; margin: 0; list-style: none }
+.todo li { display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 8px; font-size: 14px }
+.todo li::before { content: ""; width: 14px; height: 14px; border: 1.5px solid var(--ink-3); border-radius: 3px; margin-top: 4px }
+#tip { position: fixed; pointer-events: none; z-index: 20; background: var(--ink); color: var(--bg); font: 12px/1.45 var(--f-body); padding: 8px 10px; border-radius: 6px; max-width: 260px; box-shadow: 0 4px 16px rgb(0 0 0 / .18) }
+#tip b { font-weight: 600 }
+.loading { font-size: 13px; color: var(--ink-3) }
+footer { font-size: 13px; color: var(--ink-3); border-top: 1px solid var(--line); padding-top: 16px; display: grid; gap: 6px }
+@media (max-width: 560px) { .prow { grid-template-columns: 1fr } h2 { font-size: 21px } }
+@media (prefers-reduced-motion: no-preference) { .rg { transition: opacity .15s } }
+</style>
+
+<div class="wrap">
+  <header>
+    <span class="eyebrow">TCC · Especialização EaD na EPT · IFSul</span>
+    <h1>Aderência territorial e evasão na Rede Federal</h1>
+    <p class="muted">Estado do projeto antes do pré-registro: dados, classificador CNAE → curso, índices de aderência, poder estatístico e revisão sistemática. Bruno Kobi, novembro de 2026.</p>
+    <div class="status">
+      <span class="pill ok">G1 painel de ciclos ✓</span>
+      <span class="pill ok">G2 classificador ✓</span>
+      <span class="pill wait">G3 pré-registro OSF · pendente</span>
+      <span class="pill">G4 resultados · bloqueado</span>
+    </div>
+  </header>
+
+  <div class="lock"><b>Nenhum efeito foi estimado.</b> Tudo nesta página é descritivo. Nenhum gráfico relaciona evasão ou conclusão aos índices Q, S ou B; essa relação só será olhada depois do registro no OSF.</div>
+
+  <div class="tiles" id="tiles"></div>
+
+  <section id="s-class">
+    <div class="sec-head">
+      <span class="num">1 · Mapeamento CNAE → curso</span>
+      <h2>O LLM classifica as atividades econômicas bem acima das linhas de base</h2>
+      <p class="muted">Avaliação única no split de teste (201 subclasses CNAE), contra a referência anotada por LLM (ADR-0004). O intervalo do T final não se sobrepõe ao da linha de base, que é o critério do marco G2.</p>
+    </div>
+    <figure>
+      <svg id="ch-class" viewBox="0 0 640 230" role="img" aria-label="Macro-F1 por método com intervalo de confiança"></svg>
+      <details>
+        <summary>F1 por eixo tecnológico</summary>
+        <div class="tbl"><table id="tb-axes"><thead><tr><th>Eixo</th><th class="n">Precisão</th><th class="n">Revocação</th><th class="n">F1</th><th class="n">n</th></tr></thead><tbody></tbody></table></div>
+      </details>
+      <div class="src" id="src-class"></div>
+    </figure>
+  </section>
+
+  <section id="s-map">
+    <div class="sec-head">
+      <span class="num">2 · Índice de aderência estrutural Q</span>
+      <h2>Onde cada curso tem mais emprego ligado do que a média do país</h2>
+      <p class="muted">Q = ln QL: participação do emprego ligado ao curso na região imediata dividida pela participação nacional. Zero é a média do Brasil; azul é acima, vermelho abaixo. Cursos de setores concentrados em metrópoles, como Informática, ficam abaixo da média na maior parte do território.</p>
+    </div>
+    <figure>
+      <div class="controls">
+        <div class="seg" id="sel-course" role="group" aria-label="Curso"></div>
+        <label class="check"><input type="checkbox" id="chk-offer" checked> marcar regiões com oferta do curso</label>
+      </div>
+      <div id="map-box"><p class="loading">Carregando o mapa…</p></div>
+      <div class="ramp" id="ramp"></div>
+      <div class="src" id="src-map"></div>
+    </figure>
+  </section>
+
+  <section id="s-conv">
+    <div class="sec-head">
+      <span class="num">3 · Validação por um caminho independente</span>
+      <h2>O Q pelo texto concorda com o Q pelas ocupações</h2>
+      <p class="muted">O caminho O usa só as ocupações CBO que o CNCT associa a cada curso, sem texto nem LLM. A correlação de postos entre os dois Q nos ciclos é a medida de convergência pré-definida.</p>
+    </div>
+    <div class="two">
+      <figure>
+        <svg id="ch-conv" viewBox="0 0 420 380" role="img" aria-label="Dispersão do Q pelo caminho T contra o caminho O"></svg>
+        <div class="legend"><span><i class="sw" style="background:var(--s1)"></i>Presencial</span><span><i class="sw" style="background:var(--s2)"></i>EaD</span><span class="muted">amostra de 2.500 ciclos</span></div>
+      </figure>
+      <figure>
+        <h3>Sentinela: Agropecuária</h3>
+        <p class="small muted">Se o índice mede o que diz, o Q de Agropecuária deve subir com o peso da agropecuária no emprego do território.</p>
+        <svg id="ch-sent" viewBox="0 0 360 220" role="img" aria-label="Q médio de Agropecuária por tercil do emprego agropecuário"></svg>
+        <div class="src">Q médio por tercil de emprego agropecuário (RAIS).</div>
+      </figure>
+    </div>
+    <div class="src" id="src-conv"></div>
+  </section>
+
+  <section id="s-dist">
+    <div class="sec-head">
+      <span class="num">4 · Os três índices por ciclo</span>
+      <h2>Q, S e B cobrem 98% dos ciclos, 96% dos EaD</h2>
+      <p class="muted">Q é a aderência estrutural no ano anterior ao início (H1a, H2). S é o crescimento do emprego ligado ao curso durante o ciclo (H1b), e B é o instrumento Bartik que prevê S pelo crescimento nacional de cada setor.</p>
+    </div>
+    <figure>
+      <div class="controls"><div class="seg" id="sel-var" role="group" aria-label="Índice"></div></div>
+      <svg id="ch-dist" viewBox="0 0 640 240" role="img" aria-label="Distribuição do índice por modalidade"></svg>
+      <div class="legend" id="lg-dist"></div>
+      <div class="src" id="src-dist"></div>
+    </figure>
+  </section>
+
+  <section id="s-power">
+    <div class="sec-head">
+      <span class="num">5 · Poder estatístico</span>
+      <h2>H1a detecta efeitos pequenos; H2 só efeitos grandes</h2>
+      <p class="muted">Efeito mínimo detectável a 80% de poder, por 1 desvio-padrão de Q, simulado com a estrutura real dos dados e efeitos fixos de campus × ano e curso × ano. Por isso H2 (diferença EaD × presencial) está registrada como secundária.</p>
+    </div>
+    <figure>
+      <div class="tbl"><table id="tb-mde"><thead><tr><th>Hipótese</th><th class="n">Evasão (p.p.)</th><th class="n">Conclusão (p.p.)</th></tr></thead><tbody></tbody></table></div>
+      <div class="src" id="src-mde"></div>
+    </figure>
+  </section>
+
+  <section id="s-rev">
+    <div class="sec-head">
+      <span class="num">6 · Revisão sistemática (versão 1)</span>
+      <h2>Nenhum estudo nacional liga aderência curso × território à evasão</h2>
+      <p class="muted">Os estudos brasileiros que relacionam evasão ao território são qualitativos ou de um campus. A evidência internacional sobre choques de demanda e escolarização sustenta H1b e o uso de Bartik.</p>
+    </div>
+    <figure>
+      <div class="prisma" id="prisma"></div>
+      <div class="src">Busca reproduzível na OpenAlex (4 strings, título + resumo, 2008+). Triagem por LLM, a revisar. Categorias: A território × EPT, B evasão na Rede Federal, C EaD técnica, D choques de demanda.</div>
+    </figure>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <span class="num">7 · Para decidir com o orientador</span>
+      <h2>O que falta para registrar no OSF</h2>
+    </div>
+    <ul class="todo">
+      <li><span><b>ADR-0004</b>: a amostra de referência foi anotada por LLM, sem segundo avaliador humano. Aceitar, e definir se uma subamostra de 60–100 subclasses terá revisão humana.</span></li>
+      <li><span><b>ADR-0005</b>: definições operacionais de Q, S e B (Bartik sobre o emprego ligado ao curso; ciclos com L = 0 só na sensibilidade).</span></li>
+      <li><span><b>Edição do CNCT</b> (4ª ou 5ª) para o mapa principal.</span></li>
+      <li><span><b>Plano do pré-registro</b>: hipóteses, modelos, inferência (Holm; bootstrap selvagem e randomização para H2) e robustez.</span></li>
+      <li><span><b>Revisão</b>: bases com acesso institucional (CAPES, BDTD) e conferência humana da triagem.</span></li>
+    </ul>
+  </section>
+
+  <footer>
+    <span>Fontes: PNP (eficiência acadêmica, edições 2018–2023), RAIS 2012–2025, CNCT 4ª ed., CNAE 2.3, malha de regiões imediatas do IBGE. Apenas dados públicos e agregados.</span>
+    <span>Código e dados derivados: github.com/brunokobi/tcc_ept · figuras geradas por <code>scripts/make_figures.py</code>.</span>
+  </footer>
+</div>
+<div id="tip" hidden></div>
+
+<script>
+const NS = "http://www.w3.org/2000/svg";
+const fmt = (v, d = 2) => Number(v).toLocaleString("pt-BR", { minimumFractionDigits: d, maximumFractionDigits: d });
+const int = v => Number(v).toLocaleString("pt-BR");
+const pct = v => (v * 100).toLocaleString("pt-BR", { maximumFractionDigits: 1 }) + "%";
+function el(tag, attrs = {}, parent) {
+  const e = document.createElementNS(NS, tag);
+  for (const [k, v] of Object.entries(attrs)) e.setAttribute(k, v);
+  if (parent) parent.appendChild(e);
+  return e;
+}
+function txt(parent, x, y, s, attrs = {}) { const t = el("text", { x, y, ...attrs }, parent); t.textContent = s; return t; }
+const tip = document.getElementById("tip");
+function showTip(ev, html) {
+  tip.innerHTML = html; tip.hidden = false;
+  const pad = 14, w = tip.offsetWidth, h = tip.offsetHeight;
+  let x = ev.clientX + pad, y = ev.clientY + pad;
+  if (x + w > innerWidth - 8) x = ev.clientX - w - pad;
+  if (y + h > innerHeight - 8) y = ev.clientY - h - pad;
+  tip.style.left = x + "px"; tip.style.top = y + "px";
+}
+const hideTip = () => { tip.hidden = true; };
+function hover(node, html) {
+  node.addEventListener("pointermove", e => showTip(e, typeof html === "function" ? html() : html));
+  node.addEventListener("pointerleave", hideTip);
+}
+function seg(container, items, current, onPick) {
+  container.innerHTML = "";
+  items.forEach(([key, label]) => {
+    const b = document.createElement("button");
+    b.type = "button"; b.textContent = label; b.setAttribute("aria-pressed", key === current);
+    b.addEventListener("click", () => {
+      container.querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", x === b));
+      onPick(key);
+    });
+    container.appendChild(b);
+  });
+}
+
+fetch("dados.json").then(r => r.json()).then(D => {
+  tiles(D); classifier(D.classificador); map(D.mapa); convergence(D.convergencia); sentinel(D.sentinela);
+  distributions(D.distribuicoes, D.cobertura); power(D.mde); prisma(D.prisma);
+}).catch(() => {
+  document.getElementById("map-box").innerHTML = '<p class="loading">Não foi possível carregar os dados da página. Recarregue para tentar de novo.</p>';
+});
+
+function tiles(D) {
+  const f = D.classificador.metodos.find(m => m.chave === "llm_final");
+  const c = D.cobertura;
+  const items = [
+    [int(c.ciclos), `ciclos técnicos 2011–2022, ${int(c.ciclos_ead)} EaD`],
+    [fmt(f.macro_f1), `macro-F1 do mapa CNAE → curso (linha de base ${fmt(D.classificador.metodos[0].macro_f1)})`],
+    [pct(c.por_modalidade.Presencial.Q * c.por_modalidade.Presencial.ciclos / c.ciclos + c.por_modalidade.EaD.Q * c.por_modalidade.EaD.ciclos / c.ciclos), `ciclos com Q definido (${pct(c.por_modalidade.EaD.Q)} dos EaD)`],
+    [fmt(D.convergencia.rho), "convergência T × O no Q (Spearman)"],
+    [fmt(D.mde.H1a.evasao, 1) + " p.p.", "efeito mínimo detectável de H1a na evasão"],
+  ];
+  document.getElementById("tiles").innerHTML = items.map(([b, s]) => `<div class="tile"><b>${b}</b><span>${s}</span></div>`).join("");
+}
+
+function classifier(C) {
+  const svg = document.getElementById("ch-class");
+  const rows = [...C.metodos].reverse();
+  const L = 170, R = 600, top = 14, rowH = 40, x0 = 0.3, x1 = 1.0;
+  const sx = v => L + (v - x0) / (x1 - x0) * (R - L);
+  for (let t = 0.3; t <= 1.0001; t += 0.1) {
+    el("line", { x1: sx(t), x2: sx(t), y1: top - 4, y2: top + rows.length * rowH - 10, class: "grid" }, svg);
+    txt(svg, sx(t), top + rows.length * rowH + 6, fmt(t, 1), { class: "tick", "text-anchor": "middle" });
+  }
+  txt(svg, (L + R) / 2, top + rows.length * rowH + 26, "Macro-F1 no teste, IC 95% por bootstrap", { "text-anchor": "middle" });
+  rows.forEach((r, i) => {
+    const y = top + i * rowH + 12;
+    const final = r.chave === "llm_final", llm = final || r.chave.startsWith("nvidia");
+    const color = final ? "var(--s1)" : llm ? "var(--d5)" : "var(--ink-3)";
+    txt(svg, L - 12, y + 4, r.metodo, { "text-anchor": "end", style: final ? "font-weight:600;fill:var(--ink)" : "" });
+    el("line", { x1: sx(r.ic_inf), x2: sx(r.ic_sup), y1: y, y2: y, stroke: color, "stroke-width": 2, "stroke-linecap": "round" }, svg);
+    el("circle", { cx: sx(r.macro_f1), cy: y, r: 5, fill: color, stroke: "var(--surface)", "stroke-width": 2 }, svg);
+    txt(svg, sx(r.ic_sup) + 10, y + 4, fmt(r.macro_f1), { class: "tick" });
+    const hit = el("rect", { x: 0, y: y - rowH / 2, width: 640, height: rowH, fill: "transparent" }, svg);
+    hover(hit, `<b>${r.metodo}</b><br>Macro-F1 ${fmt(r.macro_f1)} [${fmt(r.ic_inf)}; ${fmt(r.ic_sup)}]<br>Acurácia ${fmt(r.acuracia)}`);
+  });
+  document.querySelector("#tb-axes tbody").innerHTML = C.por_eixo.map(a =>
+    `<tr><td>${a.eixo}</td><td class="n">${fmt(a.precisao)}</td><td class="n">${fmt(a.revocacao)}</td><td class="n">${fmt(a.f1)}</td><td class="n">${a.suporte}</td></tr>`).join("");
+  document.getElementById("src-class").textContent =
+    `Alfa de Krippendorff entre os dois LLMs: ${fmt(C.alfa_inter_llm)}. Quando concordam (${C.consenso.n} de 201), a acurácia é ${fmt(C.consenso.acuracia_com_consenso)}; quando divergem, ${fmt(C.consenso.acuracia_sem_consenso)}. Referência anotada por LLM, não por humanos.`;
+}
+
+function map(M) {
+  const box = document.getElementById("map-box");
+  const bins = M.bins, colors = ["--d0", "--d1", "--d2", "--d3", "--d4", "--d5", "--d6"];
+  const binOf = v => { for (let i = 1; i < bins.length - 1; i++) if (v < bins[i]) return i - 1; return bins.length - 2; };
+  let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+  const centers = {};
+  for (const p of M.paths) {
+    const nums = p.d.match(/-?\d+(\.\d+)?/g).map(Number);
+    let sx = 0, sy = 0, n = 0;
+    for (let i = 0; i < nums.length; i += 2) {
+      const x = nums[i], y = nums[i + 1];
+      if (x < minX) minX = x; if (x > maxX) maxX = x; if (y < minY) minY = y; if (y > maxY) maxY = y;
+      sx += x; sy += y; n++;
+    }
+    centers[p.c] = [sx / n, sy / n];
+  }
+  const pad = 0.5;
+  const svg = el("svg", { viewBox: `${minX - pad} ${minY - pad} ${maxX - minX + 2 * pad} ${maxY - minY + 2 * pad}`, role: "img", "aria-label": "Mapa do Q por região imediata" });
+  svg.style.maxHeight = "560px";
+  const gRegions = el("g", {}, svg), gOffer = el("g", {}, svg);
+  const shapes = M.paths.map(p => {
+    const path = el("path", { d: p.d, class: "rg", stroke: "var(--surface)", "stroke-width": 0.06, "stroke-linejoin": "round" }, gRegions);
+    return { p, path };
+  });
+  box.innerHTML = ""; box.appendChild(svg);
+  const ramp = document.getElementById("ramp");
+  const labels = ["≤ −2", "−1", "−0,5", "−0,15", "0,15", "0,5", "1", "≥ 2"];
+  ramp.innerHTML = colors.map((c, i) => `<div><i style="background:var(${c})"></i><small>${i === 3 ? "≈ 0 (média)" : labels[i] + " a " + labels[i + 1]}</small></div>`).join("")
+    + `<div><i style="background:var(--nodata)"></i><small>sem emprego ligado</small></div>`;
+  ramp.querySelectorAll("small")[0].textContent = "abaixo de −1";
+  ramp.querySelectorAll("small")[6].textContent = "acima de 1";
+  let course = M.cursos[0];
+  const chk = document.getElementById("chk-offer");
+  function draw() {
+    const q = M.Q[course], offered = new Set(M.ofertado[course] || []);
+    for (const { p, path } of shapes) {
+      const v = q[p.c];
+      path.setAttribute("fill", v === undefined ? "var(--nodata)" : `var(${colors[binOf(v)]})`);
+      path.onpointermove = e => showTip(e, `<b>${p.n}</b><br>${course.replace("Técnico em ", "")}: ${v === undefined ? "sem emprego ligado" : "Q = " + fmt(v)}${offered.has(p.c) ? "<br>tem oferta do curso na Rede Federal" : ""}`);
+      path.onpointerleave = hideTip;
+    }
+    gOffer.innerHTML = "";
+    if (chk.checked) for (const c of offered) {
+      const ctr = centers[c]; if (!ctr) continue;
+      el("circle", { cx: ctr[0], cy: ctr[1], r: 0.32, fill: "var(--ink)", stroke: "var(--surface)", "stroke-width": 0.1, "pointer-events": "none" }, gOffer);
+    }
+    const vals = Object.values(q);
+    const above = vals.filter(v => v > 0).length;
+    document.getElementById("src-map").textContent =
+      `${course}, emprego RAIS de ${M.ano}. ${int(above)} de 510 regiões imediatas acima da média nacional; ${int(510 - vals.length)} sem emprego ligado. Pontos: regiões com ciclos do curso na PNP (${int(offered.size)}).`;
+  }
+  seg(document.getElementById("sel-course"), M.cursos.map(c => [c, c.replace("Técnico em ", "")]), course, c => { course = c; draw(); });
+  chk.addEventListener("change", draw);
+  draw();
+}
+
+function convergence(C) {
+  const svg = document.getElementById("ch-conv");
+  const L = 48, R = 404, T = 12, B = 330, lo = -4, hi = 4, ylo = -3, yhi = 3;
+  const sx = v => L + (Math.max(lo, Math.min(hi, v)) - lo) / (hi - lo) * (R - L);
+  const sy = v => B - (Math.max(ylo, Math.min(yhi, v)) - ylo) / (yhi - ylo) * (B - T);
+  for (let t = lo; t <= hi; t += 2) { el("line", { x1: sx(t), x2: sx(t), y1: T, y2: B, class: "grid" }, svg); txt(svg, sx(t), B + 16, fmt(t, 0), { class: "tick", "text-anchor": "middle" }); }
+  for (let t = ylo; t <= yhi; t += 1) { el("line", { x1: L, x2: R, y1: sy(t), y2: sy(t), class: "grid" }, svg); txt(svg, L - 8, sy(t) + 4, fmt(t, 0), { class: "tick", "text-anchor": "end" }); }
+  el("line", { x1: sx(0), x2: sx(0), y1: T, y2: B, class: "axis" }, svg);
+  el("line", { x1: L, x2: R, y1: sy(0), y2: sy(0), class: "axis" }, svg);
+  txt(svg, (L + R) / 2, B + 38, "Q pelo caminho T (texto, LLM)", { "text-anchor": "middle" });
+  txt(svg, 12, (T + B) / 2, "Q pelo caminho O (ocupações)", { "text-anchor": "middle", transform: `rotate(-90 12 ${(T + B) / 2})` });
+  const g = el("g", {}, svg);
+  const pts = [...C.pontos].sort((a, b) => a[2] - b[2]);
+  for (const [x, y, ead] of pts) el("circle", { cx: sx(x), cy: sy(y), r: 2.2, fill: ead ? "var(--s2)" : "var(--s1)", "fill-opacity": ead ? 0.75 : 0.35 }, g);
+  const ring = el("circle", { r: 5, fill: "none", stroke: "var(--ink)", "stroke-width": 1.5, visibility: "hidden" }, svg);
+  svg.addEventListener("pointermove", e => {
+    const m = svg.getScreenCTM().inverse(), pt = new DOMPoint(e.clientX, e.clientY).matrixTransform(m);
+    let best = null, bd = 100;
+    for (const p of pts) { const d = (sx(p[0]) - pt.x) ** 2 + (sy(p[1]) - pt.y) ** 2; if (d < bd) { bd = d; best = p; } }
+    if (!best) { ring.setAttribute("visibility", "hidden"); hideTip(); return; }
+    ring.setAttribute("cx", sx(best[0])); ring.setAttribute("cy", sy(best[1])); ring.setAttribute("visibility", "visible");
+    showTip(e, `${best[2] ? "EaD" : "Presencial"}<br>Q (T) = ${fmt(best[0])}<br>Q (O) = ${fmt(best[1])}`);
+  });
+  svg.addEventListener("pointerleave", () => { ring.setAttribute("visibility", "hidden"); hideTip(); });
+  document.getElementById("src-conv").textContent =
+    `Spearman entre Q_T e Q_O: ${fmt(C.rho)} em ${int(C.n)} ciclos; para S, ${fmt(C.rho_S)}; mediana por curso, ${fmt(C.rho_mediana_curso)}. O caminho O entra no pré-registro como robustez (R2).`;
+}
+
+function sentinel(S) {
+  const svg = document.getElementById("ch-sent");
+  const items = [["Tercil baixo", S.baixo, "--d1"], ["Tercil médio", S.medio, "--d4"], ["Tercil alto", S.alto, "--d6"]];
+  const T = 16, B = 180, lo = -1.5, hi = 1.5, L = 40, R = 350;
+  const sy = v => B - (v - lo) / (hi - lo) * (B - T);
+  for (const t of [-1.5, -1, -0.5, 0, 0.5, 1, 1.5]) { el("line", { x1: L, x2: R, y1: sy(t), y2: sy(t), class: t === 0 ? "axis" : "grid" }, svg); txt(svg, L - 8, sy(t) + 4, fmt(t, 1), { class: "tick", "text-anchor": "end" }); }
+  const bw = 64, step = (R - L) / 3;
+  items.forEach(([name, v, c], i) => {
+    const x = L + step * i + (step - bw) / 2, y0 = sy(0), y1 = sy(v);
+    const r = el("rect", { x, y: Math.min(y0, y1), width: bw, height: Math.abs(y1 - y0), fill: `var(${c})`, rx: 3 }, svg);
+    txt(svg, x + bw / 2, v >= 0 ? y1 - 6 : y1 + 15, (v > 0 ? "+" : "") + fmt(v), { class: "tick", "text-anchor": "middle" });
+    txt(svg, x + bw / 2, B + 22, name, { "text-anchor": "middle" });
+    hover(r, `<b>${name}</b> do emprego agropecuário<br>Q médio de Agropecuária: ${fmt(v)}`);
+  });
+}
+
+function distributions(D, cov) {
+  const svg = document.getElementById("ch-dist");
+  const names = { Q: "Q · aderência estrutural", S: "S · choque de demanda", B: "B · instrumento Bartik" };
+  const colors = { Presencial: "var(--s1)", EaD: "var(--s2)" };
+  let v = "Q";
+  function draw() {
+    svg.innerHTML = "";
+    const d = D[v], e = d.edges, L = 20, R = 620, T = 10, B = 200;
+    const ymax = Math.max(...Object.values(d.series).flatMap(s => s.dens)) * 1.05;
+    const sx = x => L + (x - e[0]) / (e[e.length - 1] - e[0]) * (R - L);
+    const sy = y => B - y / ymax * (B - T);
+    const ticks = v === "Q" ? [-4, -2, 0, 2, 4] : v === "S" ? [-1, -0.5, 0, 0.5, 1] : [-0.4, -0.2, 0, 0.2, 0.4];
+    for (const t of ticks) { el("line", { x1: sx(t), x2: sx(t), y1: T, y2: B, class: t === 0 ? "axis" : "grid" }, svg); txt(svg, sx(t), B + 18, fmt(t, v === "Q" ? 0 : 1), { class: "tick", "text-anchor": "middle" }); }
+    el("line", { x1: L, x2: R, y1: B, y2: B, class: "axis" }, svg);
+    for (const [name, s] of Object.entries(d.series)) {
+      let path = `M${sx(e[0])},${B}`;
+      s.dens.forEach((y, i) => { path += `L${sx(e[i])},${sy(y)}L${sx(e[i + 1])},${sy(y)}`; });
+      path += `L${sx(e[e.length - 1])},${B}`;
+      el("path", { d: path, fill: "none", stroke: colors[name], "stroke-width": 2, "stroke-linejoin": "round" }, svg);
+    }
+    const guide = el("line", { y1: T, y2: B, stroke: "var(--ink-3)", "stroke-dasharray": "3 3", visibility: "hidden" }, svg);
+    const hit = el("rect", { x: L, y: T, width: R - L, height: B - T, fill: "transparent" }, svg);
+    hit.addEventListener("pointermove", ev => {
+      const pt = new DOMPoint(ev.clientX, ev.clientY).matrixTransform(svg.getScreenCTM().inverse());
+      const i = Math.max(0, Math.min(e.length - 2, Math.floor((pt.x - L) / (R - L) * (e.length - 1))));
+      const mid = (e[i] + e[i + 1]) / 2;
+      guide.setAttribute("x1", sx(mid)); guide.setAttribute("x2", sx(mid)); guide.setAttribute("visibility", "visible");
+      const share = s => fmt(s.dens[i] * (e[i + 1] - e[i]) * 100, 1) + "% dos ciclos";
+      showTip(ev, `<b>${v} entre ${fmt(e[i])} e ${fmt(e[i + 1])}</b><br>Presencial: ${share(d.series.Presencial)}<br>EaD: ${share(d.series.EaD)}`);
+    });
+    hit.addEventListener("pointerleave", () => { guide.setAttribute("visibility", "hidden"); hideTip(); });
+    document.getElementById("lg-dist").innerHTML = Object.entries(d.series).map(([n, s]) =>
+      `<span><i class="sw" style="background:${colors[n]}"></i>${n} · ${int(s.n)} ciclos · mediana ${fmt(s.mediana)}</span>`).join("");
+  }
+  seg(document.getElementById("sel-var"), Object.entries(names), v, k => { v = k; draw(); });
+  draw();
+  document.getElementById("src-dist").textContent =
+    `Valores fora da janela somados nas pontas. Q indefinido em ${int(cov.Q_nan_por_motivo.L_zero_no_territorio)} ciclos sem nenhum emprego ligado no território (entram só na sensibilidade). Correlação S × B: ${fmt(cov.rho_S_B.rho)}.`;
+}
+
+function power(M) {
+  document.querySelector("#tb-mde tbody").innerHTML = [
+    ["H1a · efeito de Q (pertencimento)", M.H1a], ["H2 · diferença do efeito de Q na EaD", M.H2]
+  ].map(([n, r]) => `<tr><td>${n}</td><td class="n">${fmt(r.evasao, 1)}</td><td class="n">${fmt(r.conclusao, 1)}</td></tr>`).join("");
+  document.getElementById("src-mde").textContent =
+    `Fração da variância de Q que sobra após os efeitos fixos: f = ${fmt(M.f)}. Simulação com Q sorteado e o desfecho real; nenhuma relação real entre desfecho e Q foi observada.`;
+}
+
+function prisma(P) {
+  const cats = Object.entries(P.categorias).map(([k, v]) => `${k} ${v}`).join(" · ");
+  const rows = [
+    [`Identificados (4 strings)`, P.identificados, null],
+    [`Após remover duplicatas`, P.sem_duplicatas, [`Excluídos pelo título`, P.excluidos_titulo]],
+    [`Resumos avaliados`, P.resumos, [`Excluídos pelo resumo`, P.excluidos_resumo]],
+    [`Incluídos · ${cats}`, P.incluidos, null],
+  ];
+  document.getElementById("prisma").innerHTML = rows.map(([a, n, ex]) =>
+    `<div class="prow"><div class="pbox">${a}<br><b>n = ${int(n)}</b></div>${ex ? `<div class="pbox ex">${ex[0]}<br><b>n = ${int(ex[1])}</b></div>` : "<div></div>"}</div>`).join("");
+}
+</script>
