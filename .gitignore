@@ -29,3 +29,6 @@ data/processed/**
 # Downloads manuais (PNP etc.)
 dados/
 *:Zone.Identifier
+
+# Saídas do navegador automatizado
+.playwright-mcp/
