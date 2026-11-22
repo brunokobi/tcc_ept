@@ -6,6 +6,9 @@
 
 TCC · Especialização em EaD na Educação Profissional e Tecnológica · IFSul
 
+**🌐 Resultados interativos: [tccept.brunokobi.tech](https://tccept.brunokobi.tech)**
+
+[![Site](https://img.shields.io/badge/site-tccept.brunokobi.tech-1c5cab?logo=googlechrome&logoColor=white)](https://tccept.brunokobi.tech)
 [![Status](https://img.shields.io/badge/status-em%20desenvolvimento-yellow)](#status)
 [![Fase](https://img.shields.io/badge/fase-pr%C3%A9--registro-blue)](docs/pre-registro/plano-osf.md)
 [![G2](https://img.shields.io/badge/G2%20classificador-macro--F1%200%2C83-brightgreen)](docs/resultados/avaliacao-classificador-t.json)
@@ -152,7 +155,7 @@ Relatório completo: [`docs/prospeccao/relatorio-viabilidade.md`](docs/prospecca
 
 ## Resultados até agora
 
-Página interativa com estes resultados: **https://tccept.brunokobi.tech**
+Página interativa com estes resultados (mapa do Q por curso, classificador, convergência, poder e revisão): **[tccept.brunokobi.tech](https://tccept.brunokobi.tech)**
 
 Nenhum efeito foi estimado: os modelos esperam o pré-registro no OSF. O que já está pronto:
 
