@@ -357,8 +357,23 @@ def main() -> None:
         "prisma": fig_prisma(),
         "mde": {"H1a": {"evasao": 1.3, "conclusao": 1.6}, "H2": {"evasao": 7.5, "conclusao": 6.9}, "f": 0.38},
     }
-    (OUT / "pagina_dados.json").write_text(json.dumps(data, ensure_ascii=False, separators=(",", ":")))
+    payload = json.dumps(data, ensure_ascii=False, separators=(",", ":"))
+    (OUT / "pagina_dados.json").write_text(payload, encoding="utf-8")
+    write_offline_page(payload)
     print("figuras em", OUT)
+
+
+def write_offline_page(payload: str) -> None:
+    """Self-contained copy of the advisor's page (data inlined) that opens straight from disk."""
+    page = ROOT / "reports" / "pagina"
+    html = (page / "index.html").read_text(encoding="utf-8")
+    fetch = 'fetch("dados.json").then(r => r.json())'
+    assert fetch in html
+    html = html.replace(fetch, "Promise.resolve(DADOS)").replace(
+        "<script>", "<script>\nconst DADOS = " + payload.replace("</", "<\\/") + ";\n", 1)
+    if not html.lstrip().lower().startswith("<!doctype"):
+        html = "<!doctype html>\n" + html
+    (page / "pagina_offline.html").write_text(html, encoding="utf-8")
 
 
 if __name__ == "__main__":
