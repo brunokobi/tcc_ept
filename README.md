@@ -152,6 +152,8 @@ Relatório completo: [`docs/prospeccao/relatorio-viabilidade.md`](docs/prospecca
 
 ## Resultados até agora
 
+Página interativa com estes resultados: **https://tccept.brunokobi.tech**
+
 Nenhum efeito foi estimado: os modelos esperam o pré-registro no OSF. O que já está pronto:
 
 **Dados.** RAIS 2012–2025 agregada por região imediata × subclasse CNAE 2.3 (totais iguais aos oficiais, exceto 2019 no DF e em SE, [P16](docs/pendencias.md)). PNP: 22.316 ciclos técnicos iniciados em 2011–2022, 1.855 deles EaD. Verificação completa em [`verificacao-dados-completos.md`](docs/prospeccao/verificacao-dados-completos.md).
@@ -236,6 +238,7 @@ python scripts/evaluate_test.py                        # avaliação única do c
 python scripts/run_course_weights.py                   # 2ª passada do LLM: pesos multicurso
 python scripts/build_indices.py                        # Q, S, B e variantes por ciclo
 python scripts/make_figures.py                         # figuras descritivas + dados da página
+TCCEPT_SSH_KEY=<chave> scripts/deploy_pagina.sh        # publica em tccept.brunokobi.tech
 python scripts/search_literature.py                    # busca da revisão sistemática
 ```
 
