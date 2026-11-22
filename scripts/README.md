@@ -1,6 +1,14 @@
 # Scripts do pipeline
 
-Ordem prevista: `ingest_*.py` → `build_territory_structure.py` → `classify_cnae.py` → `evaluate_classifier.py` → `build_index.py` → (pré-registro) → `run_models.py`.
+Ordem do pipeline:
+
+1. Ingestão: `python -m tcc_aderencia.ingest.rais <ano>` (2012–2025); PNP, CNCT, CNAE e IBGE pelas funções de `tcc_aderencia.ingest` (ver `data/README.md`).
+2. `verify_data.py` (viabilidade, descritivo).
+3. `sample_reference.py` (amostra de referência) → anotação (ADR-0004).
+4. Classificador T: funções de `tcc_aderencia.classifier` (baseline, embeddings, `llm.classify`) e caminho O (`classifier.occupations`), que gravam os `map_t_*` e `map_w_o` em `data/processed/`.
+5. `evaluate_test.py` → `run_course_weights.py` → `build_indices.py`.
+6. `search_literature.py` (revisão sistemática, independente do resto).
+7. **Só depois do pré-registro no OSF:** modelos de efeito (`tcc_aderencia.models`, ainda sem script).
 
 ## Disponíveis
 - `verify_data.py`: verificação descritiva de viabilidade com a RAIS agregada (`data/interim/rais/`) e a PNP. Mede qualidade das chaves, totais contra o estoque oficial, ponte CBO, variação e estabilidade de Q (mapa O), cobertura PNP × Q e reescala o MDE. Não estima modelo de efeito. Uso: `python scripts/verify_data.py saida.json`.

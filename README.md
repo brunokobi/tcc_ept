@@ -7,7 +7,8 @@
 TCC · Especialização em EaD na Educação Profissional e Tecnológica · IFSul
 
 [![Status](https://img.shields.io/badge/status-em%20desenvolvimento-yellow)](#status)
-[![Fase](https://img.shields.io/badge/viabilidade-confirmada-brightgreen)](docs/prospeccao/relatorio-viabilidade.md)
+[![Fase](https://img.shields.io/badge/fase-pr%C3%A9--registro-blue)](docs/pre-registro/plano-osf.md)
+[![G2](https://img.shields.io/badge/G2%20classificador-macro--F1%200%2C83-brightgreen)](docs/resultados/avaliacao-classificador-t.json)
 [![Python](https://img.shields.io/badge/python-%E2%89%A53.11-3776AB?logo=python&logoColor=white)](pyproject.toml)
 [![pandas](https://img.shields.io/badge/pandas-2.x-150458?logo=pandas&logoColor=white)](https://pandas.pydata.org/)
 [![DuckDB](https://img.shields.io/badge/DuckDB-1.x-FFF000?logo=duckdb&logoColor=black)](https://duckdb.org/)
@@ -32,6 +33,7 @@ TCC · Especialização em EaD na Educação Profissional e Tecnológica · IFSu
 - [Desenho da pesquisa](#desenho-da-pesquisa)
 - [Fontes de dados](#fontes-de-dados)
 - [Prospecção inicial: o que os dados já mostraram](#prospecção-inicial-o-que-os-dados-já-mostraram)
+- [Resultados até agora](#resultados-até-agora)
 - [Estrutura do repositório](#estrutura-do-repositório)
 - [Instalação e uso](#instalação-e-uso)
 - [Documentação](#documentação)
@@ -77,7 +79,7 @@ flowchart LR
         IBGE[IBGE<br/>regiões imediatas]
     end
 
-    CNAE --> T[Mapa T<br/>texto com IA<br/>embeddings + LLM]
+    CNAE --> T[Mapa T<br/>texto com IA<br/>LLM multicurso]
     CNCT --> T
     CNCT --> O[Mapa O<br/>ocupações CBO via RAIS]
     RAIS --> O
@@ -101,10 +103,10 @@ flowchart LR
 
 | Caminho | Como funciona | Papel |
 |---|---|---|
-| **T — texto com IA** | Embeddings das descrições e notas CNAE e dos perfis e campos de atuação do CNCT; LLM (2 provedores) para casos ambíguos, com justificativa registrada | **Mapa principal** |
+| **T — texto com IA** | LLM (ERNIE, via OpenRouter, modelos gratuitos) atribui a cada subclasse CNAE o eixo e todos os cursos do CNCT ligados a ela, com pesos e justificativa; um segundo LLM (Nemotron) mede a concordância. TF-IDF e embeddings são as linhas de base | **Mapa principal** |
 | **O — ocupações** | Peso de cada subclasse no curso = fração dos seus vínculos RAIS nas ocupações CBO associadas ao curso pelo CNCT | Validação de convergência e robustez |
 
-Validação contra amostra de cerca de **300 subclasses anotadas por dois avaliadores** (concordância inter e intra-avaliador por alfa de Krippendorff), com precisão, revocação e F1 por eixo e comparação com uma linha de base por palavras-chave.
+Validação contra uma amostra de referência de **300 subclasses** (99 de desenvolvimento, 201 de teste), anotada por LLM na falta de segundo avaliador humano ([ADR-0004](docs/adr/0004-avaliador-unico.md)): precisão, revocação e F1 por eixo, com IC por bootstrap, contra as linhas de base. A validação humana de uma subamostra está pendente.
 
 ### Estratégia de identificação
 
@@ -121,14 +123,14 @@ Validação contra amostra de cerca de **300 subclasses anotadas por dois avalia
 
 | Fonte | Conteúdo | Acesso |
 |---|---|---|
-| [Plataforma Nilo Peçanha](https://www.gov.br/mec/pt-br/pnp) | Microdados de matrículas e eficiência acadêmica | Download manual (portal com verificação anti-robô) |
-| [RAIS](ftp://ftp.mtps.gov.br/pdet/microdados/RAIS/) | Microdados públicos de vínculos, 1985–2025 | FTP do MTE |
+| [Plataforma Nilo Peçanha](https://www.gov.br/mec/pt-br/pnp) | Microdados de eficiência acadêmica, edições 2018–2023 (versionados em `data/pnp/`) | Download manual (portal com verificação anti-robô) |
+| [RAIS](ftp://ftp.mtps.gov.br/pdet/microdados/RAIS/) | Microdados públicos de vínculos; usados 2012–2025 | FTP do MTE |
 | Base de CNPJ (Receita Federal) | Estabelecimentos por CNAE e município | Pipeline próprio do pesquisador |
 | [CNCT 4ª ed.](https://www.saude.sp.gov.br/resources/crh/gsdrh/supervisao-esc/catalogocursostecnicosatualizadoemnovde2024.pdf) | 214 cursos, 13 eixos, perfis, CBO | PDF consolidado (alterado em 29/11/2024) |
 | [CNAE 2.3](https://servicodados.ibge.gov.br/api/v2/cnae/subclasses) | 1.332 subclasses com notas explicativas | API do IBGE |
 | [Divisão regional IBGE](https://servicodados.ibge.gov.br/api/v1/localidades/municipios) | 510 regiões imediatas, 133 intermediárias | API do IBGE |
 
-> Os dados brutos e intermediários **não** são versionados (ver `.gitignore`); são reproduzíveis pelos módulos de `src/tcc_aderencia/ingest/`. A amostra de referência anotada (`data/reference/`) é versionada.
+> Os dados brutos, intermediários e processados **não** são versionados (ver `.gitignore`); são reproduzíveis pelo pipeline ([`data/README.md`](data/README.md), [`scripts/README.md`](scripts/README.md)). A PNP em Parquet, as tabelas externas e a amostra de referência são versionadas.
 
 ## Prospecção inicial: o que os dados já mostraram
 
@@ -148,6 +150,34 @@ Relatório completo: [`docs/prospeccao/relatorio-viabilidade.md`](docs/prospecca
 | Poder para H2 (EaD) | 56% das matrículas EaD em Gestão e Negócios | ⚠️ calcular efeito mínimo detectável |
 | Casamento PNP ↔ CNCT | 99,6% das matrículas | ✅ viável |
 
+## Resultados até agora
+
+Nenhum efeito foi estimado: os modelos esperam o pré-registro no OSF. O que já está pronto:
+
+**Dados.** RAIS 2012–2025 agregada por região imediata × subclasse CNAE 2.3 (totais iguais aos oficiais, exceto 2019 no DF e em SE, [P16](docs/pendencias.md)). PNP: 22.316 ciclos técnicos iniciados em 2011–2022, 1.855 deles EaD. Verificação completa em [`verificacao-dados-completos.md`](docs/prospeccao/verificacao-dados-completos.md).
+
+**Classificador T (marco G2, avaliação única no teste, 201 subclasses).** Detalhe em [`avaliacao-classificador-t.json`](docs/resultados/avaliacao-classificador-t.json).
+
+| Método | Acurácia | Macro-F1 [IC 95%] |
+|---|---|---|
+| TF-IDF (linha de base) | 0,52 | 0,46 [0,39; 0,53] |
+| Embeddings | 0,52 | 0,47 [0,40; 0,55] |
+| Caminho O (CBO) | 0,59 | 0,45 [0,38; 0,53] |
+| Nemotron | 0,85 | 0,76 [0,68; 0,81] |
+| **T final (ERNIE)** | **0,89** | **0,83 [0,75; 0,88]** |
+
+Alfa de Krippendorff entre os dois LLMs: 0,89. Segunda passada multicurso: 4,7 cursos por subclasse em média, 188 dos 189 cursos civis cobertos ([ADR-0005](docs/adr/0005-indices-q-s-b.md)).
+
+**Índices por ciclo** ([`indices.json`](docs/resultados/indices.json)):
+- `Q` definido em **98%** dos ciclos (96% dos EaD);
+- convergência entre os caminhos T e O no `Q`: Spearman **0,65**;
+- correlação entre o choque `S` e o instrumento Bartik `B`: 0,42;
+- sentinela: o `Q` de Agropecuária vai de −1,19 a +1,32 do tercil menos ao mais agrícola.
+
+**Poder (efeito mínimo detectável a 80%, por 1 dp de `Q`):** H1a 1,3 p.p. de evasão; H2 7,5 p.p. (por isso H2 é secundária).
+
+**Revisão sistemática (v1).** OpenAlex, 471 registros, 43 incluídos. Nenhum estudo encontrado mede a aderência curso × território com dados administrativos nacionais e a relaciona à evasão ([síntese](docs/revisao/sintese.md)).
+
 ## Estrutura do repositório
 
 ```
@@ -158,20 +188,21 @@ Relatório completo: [`docs/prospeccao/relatorio-viabilidade.md`](docs/prospecca
 │   ├── spec/                    # specs 00–06: fonte de verdade da implementação
 │   ├── adr/                     # registros de decisão
 │   ├── prospeccao/              # relatório de viabilidade dos dados
+│   ├── resultados/              # métricas do classificador e dos índices (JSON)
 │   ├── pre-registro/            # rascunho OSF e registro de desvios
-│   ├── revisao/                 # protocolo PRISMA, triagem, referências
+│   ├── revisao/                 # protocolo, busca, triagem PRISMA, síntese
 │   ├── cronograma.md
 │   └── pendencias.md
 ├── src/tcc_aderencia/
 │   ├── ingest/                  # CNPJ, RAIS, PNP, CNCT/CNAE, IBGE
 │   ├── classifier/              # baseline, embeddings, LLM, avaliação
-│   ├── index/                   # índices de aderência (Q, QL, S)
+│   ├── index/                   # índices Q, S e Bartik B
 │   ├── models/                  # logit fracionário, painel, shift-share, placebos, poder
 │   ├── dashboard/  mcp_server/  chat/   # extensões (produto técnico)
 │   └── config.py
 ├── data/
-│   ├── raw/ interim/ processed/ external/   # fora do git
-│   └── reference/               # amostra de referência anotada (versionada)
+│   ├── pnp/ external/ reference/  # versionados
+│   └── raw/ interim/ processed/   # fora do git
 ├── annotation/                  # protocolo de anotação
 ├── notebooks/                   # exploração (não é fonte de verdade)
 ├── paper/                       # artigo(s)
@@ -190,27 +221,24 @@ cd tcc_ept
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -e ".[dev,llm]"      # extras: dashboard, mcp
-cp .env.example .env             # chaves de API dos LLMs
 pytest                           # testes
 ruff check src tests             # lint
 ```
 
-### Exemplos
+A etapa LLM usa a variável de ambiente `OPENROUTER_API_KEY` (só modelos gratuitos). A chave nunca vai para o repositório.
 
-```python
-from pathlib import Path
-from tcc_aderencia.ingest.cnct import load_cnct, load_cnae_subclasses
+### Pipeline
 
-cursos = load_cnct(Path("cnct4.pdf"))   # uma linha por curso, com eixo, perfil, CBO e EaD
-cnae = load_cnae_subclasses()           # 1.332 subclasses via API do IBGE
+```bash
+python -m tcc_aderencia.ingest.rais 2012 2013 ... 2025   # RAIS: baixa e agrega (horas)
+python scripts/verify_data.py saida.json               # viabilidade (descritivo)
+python scripts/evaluate_test.py                        # avaliação única do classificador T (G2)
+python scripts/run_course_weights.py                   # 2ª passada do LLM: pesos multicurso
+python scripts/build_indices.py                        # Q, S, B e variantes por ciclo
+python scripts/search_literature.py                    # busca da revisão sistemática
 ```
 
-```python
-from tcc_aderencia.index.aderencia import axis_employment_share, location_quotient
-
-shares = axis_employment_share(employment, mapping)        # participação no emprego
-ql = location_quotient(shares, employment, mapping)        # quociente locacional
-```
+As etapas anteriores ao `evaluate_test.py` (PNP, caminho O, linhas de base e LLM) rodam pelas funções de `tcc_aderencia.ingest` e `tcc_aderencia.classifier`; ver [`scripts/README.md`](scripts/README.md).
 
 ## Documentação
 
@@ -225,8 +253,12 @@ ql = location_quotient(shares, employment, mapping)        # quociente locaciona
 | [Spec 04](docs/spec/04-modelagem-identificacao.md) | Modelos e estratégia de identificação |
 | [Spec 05](docs/spec/05-produto-tecnico.md) | Painel, servidor MCP e chat (extensão) |
 | [Spec 06](docs/spec/06-ciencia-aberta-etica.md) | Ciência aberta, ética e limitações |
-| [ADRs](docs/adr/) | Edição do CNCT, unidade territorial, stack |
-| [Pendências](docs/pendencias.md) | Pontos a verificar (P1–P13) |
+| [ADRs](docs/adr/) | Edição do CNCT, unidade territorial, stack, referência por LLM (0004), definição de Q, S e B (0005) |
+| [Pré-registro](docs/pre-registro/plano-osf.md) | Rascunho v2 para o OSF: hipóteses, modelos, inferência, MDE, robustez |
+| [Resultados](docs/resultados/) | Avaliação do classificador e índices (JSON) |
+| [Revisão sistemática](docs/revisao/sintese.md) | Busca, triagem PRISMA e síntese preliminar |
+| [Pendências](docs/pendencias.md) | Pontos a verificar (P1–P21) |
+| [Cronograma](docs/cronograma.md) | Etapas, marcos e situação atual |
 
 ## Cronograma e marcos
 
@@ -246,9 +278,9 @@ Meses relativos ao início do TCC. **Núcleo** antes de **extensões**.
 
 | Marco | Critério |
 |---|---|
-| **G1** (fim M3) | Painel oferta × ciclo montado; ofertas EaD e ciclos confirmados |
-| **G2** (fim M4) | Mapa T com macro-F1 acima da linha de base; convergência T × O |
-| **G3** (M4) | Simulação de poder e pré-registro publicados — **sem G3, nenhum efeito é estimado** |
+| **G1** (fim M3) ✅ | Painel oferta × ciclo montado; ofertas EaD e ciclos confirmados |
+| **G2** (fim M4) ✅ | Mapa T com macro-F1 acima da linha de base; convergência T × O |
+| **G3** (M4) ⏳ | Simulação de poder e pré-registro publicados — **sem G3, nenhum efeito é estimado** |
 | **G4** (fim M6) | Resultados principais e robustez fechados → extensões liberadas |
 
 ## Ciência aberta e ética
@@ -262,14 +294,16 @@ Meses relativos ao início do TCC. **Núcleo** antes de **extensões**.
 
 - [x] Estrutura do projeto, specs e ADRs
 - [x] Pré-projeto v2
-- [x] Prospecção: CNCT, CNAE, IBGE, RAIS (amostra)
-- [x] Prospecção: Plataforma Nilo Peçanha (safra 2022)
-- [ ] Download das demais safras da PNP (2018–2025)
-- [ ] Revisão sistemática
-- [ ] Ingestão completa (RAIS 2015–2024, PNP)
-- [ ] Amostra de referência anotada
-- [ ] Mapeamentos T e O validados
-- [ ] Pré-registro no OSF
+- [x] Prospecção e verificação de viabilidade com todos os dados
+- [x] Ingestão: PNP 2018–2023 e RAIS 2012–2025
+- [x] Amostra de referência anotada (por LLM, ADR-0004)
+- [x] Classificador T avaliado no teste (G2) e caminho O
+- [x] Índices Q, S e B por ciclo
+- [x] Simulação de poder com o Q real
+- [ ] Revisão sistemática: v1 feita (OpenAlex); faltam bases manuais, bola de neve e leitura completa
+- [ ] Validação humana de uma subamostra da referência (P12)
+- [ ] Conferir a correspondência CNAE com as tabelas do IBGE (P21)
+- [ ] Aprovação do orientador (ADR-0004, ADR-0005, edição do CNCT) e pré-registro no OSF
 - [ ] Modelos e resultados
 - [ ] Artigo
 

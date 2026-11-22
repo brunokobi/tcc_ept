@@ -23,5 +23,11 @@ Pesos `w(s,c)` de cada subclasse CNAE *s* (1.332) para cada curso *c* (189 civis
 - **Convergência T × O:** correlação de Spearman entre `w_T` e `w_O` por curso; correlação entre os índices `Q` resultantes.
 - **Critério de sucesso:** macro-F1 (T) > baseline com IC sem sobreposição; resultados principais estáveis entre T e O.
 
+## Implementação (o que mudou em relação ao plano acima)
+- **Referência:** anotada por LLM, não por dois avaliadores humanos (ADR-0004, proposta). Concordância inter-avaliador substituída pelo alfa entre os dois LLMs do classificador; validação humana de subamostra fica em P12.
+- **LLM:** aplicado a todas as subclasses, não só às ambíguas, via OpenRouter com modelos gratuitos (ERNIE como principal, Nemotron como segundo provedor); regra de decisão `llm.combine` fixada no dev antes do teste.
+- **Pesos multicurso:** segunda passada do LLM lista todos os cursos ligados a cada subclasse, mantendo o eixo avaliado (ADR-0005, P20); `metodo_T = llm_multicurso`.
+- **Resultado no teste (G2):** macro-F1 0,83 [0,75; 0,88] contra 0,46 da baseline; convergência T × O no nível de Q: Spearman 0,65 (`docs/resultados/`, P19).
+
 ## Saída
 `data/processed/map_cnae_curso.parquet`: `cnae_subclasse, curso, eixo, w_T, w_O, metodo_T, confianca_T, justificativa_T, cnct_edicao`.

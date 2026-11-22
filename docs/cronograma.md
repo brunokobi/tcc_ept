@@ -15,7 +15,18 @@ Meses relativos ao início do TCC (M1); ajustar ao calendário oficial. **Núcle
 | 9 | Entrega e defesa | 9 | — | — | — |
 
 ## Marcos
-- **G1 (fim M3):** painel oferta × ciclo montado; números de ofertas EaD e de ciclos confirmados.
-- **G2 (fim M4):** mapeamento T com macro-F1 > baseline; convergência T × O reportada.
-- **G3 (M4):** simulação de poder + pré-registro publicados. Sem G3, nada de estimar efeitos.
+- **G1 (fim M3):** painel oferta × ciclo montado; números de ofertas EaD e de ciclos confirmados. ✅ 22.316 ciclos técnicos (1.855 EaD), edições 2018–2023 da PNP.
+- **G2 (fim M4):** mapeamento T com macro-F1 > baseline; convergência T × O reportada. ✅ macro-F1 0,83 contra 0,46 (teste, 2026-11-20); T × O 0,65.
+- **G3 (M4):** simulação de poder + pré-registro publicados. Sem G3, nada de estimar efeitos. ⏳ MDE calculado e rascunho pronto (`pre-registro/plano-osf.md`); falta o orientador e o OSF.
 - **G4 (fim M6):** resultados principais e robustez fechados → extensões liberadas.
+
+## Situação das etapas (2026-11-22)
+| # | Situação |
+|---|---|
+| 1 | v1 feita (OpenAlex, 43 incluídos); faltam bases manuais, bola de neve e leitura completa (P9) |
+| 2 | feita (RAIS 2012–2025, PNP 2018–2023); falta conferir a correspondência CNAE com o IBGE (P21) |
+| 3 | feita por LLM (ADR-0004); validação humana de subamostra pendente (P12) |
+| 4 | feita (G2) |
+| 5 | MDE pronto; pré-registro em rascunho |
+| 6 | índices prontos (`docs/resultados/indices.json`); modelos bloqueados até o OSF |
+| 7–9 | não iniciadas |
